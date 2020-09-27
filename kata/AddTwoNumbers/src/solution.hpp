@@ -10,11 +10,23 @@ public:
 	{
 		ListNode * answer = new ListNode;
 		ListNode * travel = answer;
+
+		int addend_left;
+		int addend_right;
 		int carry = 0;
 
 		while (lhs || rhs) {
-			int addend_left = lhs ? lhs->val : 0;
-			int addend_right = rhs ? rhs->val : 0;
+			addend_left = 0;
+			addend_right = 0;
+
+			if (lhs) {
+				addend_left = lhs->val;
+				lhs = lhs->next;
+			}
+			if (rhs) {
+				addend_right = rhs->val;
+				rhs = rhs->next;
+			}
 
 			int sum = addend_left + addend_right + carry;
 			carry = sum / 10;
@@ -22,16 +34,13 @@ public:
 
 			travel->val = sum;
 
-			if ((lhs && lhs->next) || (rhs && rhs->next)) {
+			if (lhs || rhs) {
 				travel->next = new ListNode;
 				travel = travel->next;
 			}
 			else if (carry) {
 				travel->next = new ListNode(carry);
 			}
-
-			lhs = lhs ? lhs->next : nullptr;
-			rhs = rhs ? rhs->next : nullptr;
 		}
 
 		return answer;

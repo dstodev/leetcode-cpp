@@ -4,10 +4,10 @@
 #include "given.hpp"
 
 
-ListNode * createList(int val);
+inline ListNode * createList(int val);
 
 template <typename... Args>
-ListNode * createList(int val, Args... args)
+inline ListNode * createList(int val, Args... args)
 {
 	return new ListNode(val, createList(args...));
 }

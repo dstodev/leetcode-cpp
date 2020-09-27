@@ -27,6 +27,22 @@ TEST(Helpers, createListTwoArgs)
 	deleteList(actual);
 }
 
+TEST(Helpers, createListFiveArgs)
+{
+	ListNode * expected = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+	ListNode * actual = createList(1, 2, 3, 4, 5);
+
+	ASSERT_NE(nullptr, actual);
+	ASSERT_EQ(expected->val, actual->val);
+	ASSERT_EQ(expected->next->val, actual->next->val);
+	ASSERT_EQ(expected->next->next->val, actual->next->next->val);
+	ASSERT_EQ(expected->next->next->next->val, actual->next->next->next->val);
+	ASSERT_EQ(expected->next->next->next->next->val, actual->next->next->next->next->val);
+
+	deleteList(expected);
+	deleteList(actual);
+}
+
 TEST(Helpers, ListNodeOperatorEqualAddressEqual)
 {
 	ListNode * l1 = createList(1, 2);

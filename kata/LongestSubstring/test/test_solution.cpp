@@ -58,3 +58,39 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample4)
 
 	ASSERT_EQ(expected, actual);
 }
+
+TEST(LongestSubstring_Solution, lengthOfLongestSubstringEndOfString)
+{
+	string input {"1231234"};
+	int expected = 4;  // "1234"
+
+	Solution uut;
+
+	int actual = uut.lengthOfLongestSubstring(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(LongestSubstring_Solution, lengthOfLongestSubstringOneCharacter)
+{
+	string input {"1"};
+	int expected = 1;  // "1"
+
+	Solution uut;
+
+	int actual = uut.lengthOfLongestSubstring(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(LongestSubstring_Solution, lengthOfLongestSubstringPalindrome)
+{
+	string input {"1221"};
+	int expected = 2;  // "12" or "21"
+
+	Solution uut;
+
+	int actual = uut.lengthOfLongestSubstring(input);
+
+	ASSERT_EQ(expected, actual);
+}

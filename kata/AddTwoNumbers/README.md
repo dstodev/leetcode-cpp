@@ -1,4 +1,4 @@
-> From https://leetcode.com/problems/add-two-numbers
+> From: https://leetcode.com/problems/add-two-numbers
 
 # Problem
 You are given two **non-empty** linked lists representing two non-negative integers.

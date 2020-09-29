@@ -11,7 +11,7 @@ TEST(TwoSum_Solution, defaultConstructor)
 	Solution uut;
 }
 
-TEST(TwoSum_Solution, twoSumGivenInputExampleOne)
+TEST(TwoSum_Solution, twoSumGivenInputExample1)
 {
 	vector<int> expected{0, 1};
 	vector<int> nums{2, 7, 11, 15};
@@ -24,7 +24,7 @@ TEST(TwoSum_Solution, twoSumGivenInputExampleOne)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(TwoSum_Solution, twoSumGivenInputExampleTwo)
+TEST(TwoSum_Solution, twoSumGivenInputExample2)
 {
 	vector<int> expected{1, 2};
 	vector<int> nums{3, 2, 4};
@@ -37,7 +37,7 @@ TEST(TwoSum_Solution, twoSumGivenInputExampleTwo)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(TwoSum_Solution, twoSumGivenInputExampleThree)
+TEST(TwoSum_Solution, twoSumGivenInputExample3)
 {
 	vector<int> expected{0, 1};
 	vector<int> nums{3, 3};

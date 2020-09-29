@@ -11,13 +11,11 @@ public:
 		ListNode * answer = new ListNode;
 		ListNode * travel = answer;
 
-		int addend_left;
-		int addend_right;
 		int carry = 0;
 
 		while (lhs || rhs) {
-			addend_left = 0;
-			addend_right = 0;
+			int addend_left = 0;
+			int addend_right = 0;
 
 			if (lhs) {
 				addend_left = lhs->val;

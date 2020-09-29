@@ -1,25 +1,25 @@
 include(GoogleTest)
 
 # Test re-implemented given auxiliary code
-add_executable(test_given
+add_executable(${PROJECT_NAME}_test_given
 	test_given
 )
-target_link_libraries(test_given
+target_link_libraries(${PROJECT_NAME}_test_given
 	PRIVATE
-		given
+		${PROJECT_NAME}_given
 		gtest_main
 )
-gtest_discover_tests(test_given)
+gtest_discover_tests(${PROJECT_NAME}_test_given)
 
 # Test solution
-add_executable(test_solution
+add_executable(${PROJECT_NAME}_test_solution
 	test_helpers
 	test_solution
 )
-target_link_libraries(test_solution
+target_link_libraries(${PROJECT_NAME}_test_solution
 	PRIVATE
-		given
-		solution
+		${PROJECT_NAME}_given
+		${PROJECT_NAME}_solution
 		gtest_main
 )
-gtest_discover_tests(test_solution)
+gtest_discover_tests(${PROJECT_NAME}_test_solution)

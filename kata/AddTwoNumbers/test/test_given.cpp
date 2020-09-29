@@ -3,7 +3,7 @@
 #include <given.hpp>
 
 
-TEST(GivenListNode, defaultConstructor)
+TEST(AddTwoNumbers_GivenListNode, defaultConstructor)
 {
 	ListNode uut;
 
@@ -12,7 +12,7 @@ TEST(GivenListNode, defaultConstructor)
 }
 
 
-TEST(GivenListNode, oneArgConstructor)
+TEST(AddTwoNumbers_GivenListNode, oneArgConstructor)
 {
 	ListNode uut(1);
 
@@ -20,7 +20,7 @@ TEST(GivenListNode, oneArgConstructor)
 	ASSERT_EQ(nullptr, uut.next);
 }
 
-TEST(GivenListNode, twoArgConstructor)
+TEST(AddTwoNumbers_GivenListNode, twoArgConstructor)
 {
 	ListNode expected;
 	ListNode uut(2, &expected);

@@ -29,7 +29,7 @@ AllowShortFunctionsOnASingleLine: None
 AlwaysBreakTemplateDeclarations: true
 BreakConstructorInitializers: BeforeColon
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-IndentPPDirectives: BeforeHash
+IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Middle
 SpaceAfterCStyleCast: true

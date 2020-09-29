@@ -3,7 +3,6 @@
 
 #include "given.hpp"
 
-
 inline ListNode * createList(int val);
 
 template <typename... Args>

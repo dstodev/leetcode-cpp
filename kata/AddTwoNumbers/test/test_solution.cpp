@@ -3,12 +3,13 @@
 #include <helpers.hpp>
 #include <solution.hpp>
 
-TEST(Solution, defaultConstructor)
+
+TEST(AddTwoNumbers_Solution, defaultConstructor)
 {
 	Solution uut;
 }
 
-TEST(Solution, addTwoNumbersGivenInput)
+TEST(AddTwoNumbers_Solution, addTwoNumbersGivenInput)
 {
 	auto l1 = createList(2, 4, 3);
 	auto l2 = createList(5, 6, 4);
@@ -25,7 +26,7 @@ TEST(Solution, addTwoNumbersGivenInput)
 	deleteList(actual);
 }
 
-TEST(Solution, addTwoNumbersInequalArgCount)
+TEST(AddTwoNumbers_Solution, addTwoNumbersInequalArgCount)
 {
 	auto l1 = createList(1, 2, 3, 4);
 	auto l2 = createList(5, 6);
@@ -42,7 +43,7 @@ TEST(Solution, addTwoNumbersInequalArgCount)
 	deleteList(actual);
 }
 
-TEST(Solution, addOneArgWithCarry)
+TEST(AddTwoNumbers_Solution, addOneArgWithCarry)
 {
 	auto l1 = createList(5);
 	auto l2 = createList(5);

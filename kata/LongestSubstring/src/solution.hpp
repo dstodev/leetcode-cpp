@@ -40,7 +40,7 @@ public:
 				setSizeIfLarger();
 
 				const auto map_index = pair.first;
-				auto& char_index = map_index->second;
+				auto & char_index = map_index->second;
 
 				if (tail < char_index + 1) {
 					tail = char_index + 1;
@@ -55,7 +55,8 @@ public:
 		return answer;
 	}
 
-	void setSizeIfLarger() {
+	inline void setSizeIfLarger()
+	{
 		const int size = static_cast<int>(head - tail);
 
 		if (size > answer) {

@@ -23,16 +23,26 @@ BraceWrapping:
     SplitEmptyNamespace: false
     SplitEmptyRecord: false
 
+# Align all the things!
+AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveMacros: true
-AllowAllConstructorInitializersOnNextLine: true
+AlignEscapedNewlines: true
+AlignOperands: true
+
+AllowAllConstructorInitializersOnNextLine: false
 AllowShortFunctionsOnASingleLine: None
 AlwaysBreakTemplateDeclarations: true
-BreakConstructorInitializers: BeforeColon
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBinaryOperators: NonAssignment
+BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
+IncludeBlocks: Preserve
 IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Middle
 SpaceAfterCStyleCast: true
+SpaceBeforeCpp11BracedList: true
 SpacesBeforeTrailingComments: 2
 UseTab: ForIndentation
 ...

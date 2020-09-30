@@ -13,7 +13,7 @@ TEST(LongestSubstring_Solution, defaultConstructor)
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample1)
 {
-	string input{"abcabcbb"};
+	string input {"abcabcbb"};
 	int expected = 3;  // "abc"
 
 	Solution uut;
@@ -25,7 +25,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample1)
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample2)
 {
-	string input{"bbbbb"};
+	string input {"bbbbb"};
 	int expected = 1;  // "b"
 
 	Solution uut;
@@ -37,7 +37,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample2)
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample3)
 {
-	string input{"pwwkew"};
+	string input {"pwwkew"};
 	int expected = 3;  // "wke"
 
 	Solution uut;

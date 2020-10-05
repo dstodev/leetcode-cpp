@@ -1,19 +1,21 @@
-add_library(impl_private
-	impl_private
+project(ImplTesting)
+
+add_library(private
+	private
 )
 
-add_library(impl_public
-	impl_public
+add_library(public
+	public
 )
-target_link_libraries(impl_public
+target_link_libraries(public
 	PRIVATE
-		impl_private
+		private
 )
 
-add_executable(impl_consumer
-	impl_consumer
+add_executable(consumer
+	consumer
 )
-target_link_libraries(impl_consumer
+target_link_libraries(consumer
 	PRIVATE
-		impl_public
+		public
 )

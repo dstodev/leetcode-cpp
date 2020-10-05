@@ -1,5 +1,5 @@
-#include "impl_public.hpp"
-#include "impl_private.hpp"
+#include "public.hpp"
+#include "private.hpp"
 
 
 ImplPublic::ImplPublic()

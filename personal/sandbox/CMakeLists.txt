@@ -1,5 +1,4 @@
 project(Sandbox)
 
-add_executable(cast_to_child
-	cast_to_child.cpp
-)
+add_subdirectory(downcast)
+add_subdirectory(impl)

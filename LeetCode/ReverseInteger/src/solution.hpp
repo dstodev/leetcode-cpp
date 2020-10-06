@@ -11,6 +11,11 @@ public:
 		int digit;
 
 		do {
+			// answer * 10 would overflow, so we instead divide the other side by 10 to achieve the same effect.
+			//
+			// answer * 10 > max() == answer > max() / 10
+			//          ^^                             ^^
+			//
 			const bool will_overflow  = answer > (std::numeric_limits<int>::max() / 10);
 			const bool will_underflow = answer < (std::numeric_limits<int>::min() / 10);
 

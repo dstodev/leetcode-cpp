@@ -34,14 +34,10 @@ public:
 			const bool will_underflow = answer < ((std::numeric_limits<int>::min() - underflow_digit) / 10);
 
 			// TODO: How can this logic be tested? I'd like to test:
-			// 1. An input integer which, when reversed, yields a value which will overflow at
-			// 'answer * 10'. This doesn't seem possible, because int::max is 2147483647. That backwards is
-			// 7463847412, which is itself above int::max, so it cannot be passed to this function without
-			// overflowing.
-			//
-			// 2. An integer which will not overflow after `answer * 10`, but will overflow with `+ digit`.
-			// For the same reason as in 1., this will not work. If it did, a number to use would be
-			// 8463847412, because backwards it is int::max + 1.
+			// 1. An integer which will not overflow after `answer * 10`, but will overflow with `+ digit`.
+			// This doesn't seem possible, because int::max is 2147483647. I'd want to use 8463847412,
+			// because backwards it is int::max + 1, but that number is far greater than int::max, so it
+			// cannot be passed to this function without overflowing.
 
 			if (will_overflow || will_underflow) {
 				// Return 0 instead.

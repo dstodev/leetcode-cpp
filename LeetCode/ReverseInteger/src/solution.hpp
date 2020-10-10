@@ -15,12 +15,12 @@ public:
 		do {
 			digit = input % 10;
 
-			// Clamp overflow digit to [int::min < digit < 0]. Negative digit cannot contribute to overflow,
-			// but would otherwise underflow int::min.
+			// Clamp overflow digit to [0 < digit < int::max]. Negative digit cannot contribute to overflow,
+			// but would otherwise overflow int::max when subtracted from it.
 			const int overflow_digit = std::max(0, digit);
 
-			// Clamp underflow digit to [0 < digit < int::max]. Positive digit cannot contribute to
-			// underflow, but would otherwise overflow int::max.
+			// Clamp underflow digit to [int::min < digit < 0]. Positive digit cannot contribute to
+			// underflow, but would otherwise underflow int::min when added to it.
 			const int underflow_digit = std::min(0, digit);
 
 			// answer * 10 could overflow, so we instead divide the other side by 10 to achieve the same
@@ -40,7 +40,6 @@ public:
 			// cannot be passed to this function without overflowing.
 
 			if (will_overflow || will_underflow) {
-				// Return 0 instead.
 				answer = 0;
 				break;
 			}

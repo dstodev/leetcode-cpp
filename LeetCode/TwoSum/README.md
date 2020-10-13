@@ -27,9 +27,9 @@ Output: [0,1]
 
 Constraints:
 
-- `2 <= nums.length <= 105`
-- `-109 <= nums[i] <= 109`
-- `-109 <= target <= 109`
+- `2 <= nums.length <= 10^5`
+- `-10^9 <= nums[i] <= 10^9`
+- `-10^9 <= target <= 10^9`
 
 **Only one valid answer exists.**
 

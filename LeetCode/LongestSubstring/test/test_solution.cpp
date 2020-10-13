@@ -11,86 +11,86 @@ TEST(LongestSubstring_Solution, defaultConstructor)
 	Solution uut;
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample1)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample1)
 {
-	string input {"abcabcbb"};
-	int expected = 3;  // "abc"
+	const string input {"abcabcbb"};
+	const int expected = 3;  // "abc"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample2)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample2)
 {
-	string input {"bbbbb"};
-	int expected = 1;  // "b"
+	const string input {"bbbbb"};
+	const int expected = 1;  // "b"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample3)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample3)
 {
-	string input {"pwwkew"};
-	int expected = 3;  // "wke"
+	const string input {"pwwkew"};
+	const int expected = 3;  // "wke"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringGivenInputExample4)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample4)
 {
-	string input;
-	int expected = 0;  // ""
+	const string input;
+	const int expected = 0;  // ""
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringEndOfString)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_EndOfString)
 {
-	string input {"1231234"};
-	int expected = 4;  // "1234"
+	const string input {"1231234"};
+	const int expected = 4;  // "1234"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstringOneCharacter)
 {
-	string input {"1"};
-	int expected = 1;  // "1"
+	const string input {"1"};
+	const int expected = 1;  // "1"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstringPalindrome)
 {
-	string input {"1221"};
-	int expected = 2;  // "12" or "21"
+	const string input {"1221"};
+	const int expected = 2;  // "12" or "21"
 
 	Solution uut;
 
-	int actual = uut.lengthOfLongestSubstring(input);
+	const int actual = uut.lengthOfLongestSubstring(input);
 
 	ASSERT_EQ(expected, actual);
 }

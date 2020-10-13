@@ -1,6 +1,7 @@
 add_subdirectory(_template)
 
 add_subdirectory(AddTwoNumbers)
-add_subdirectory(TwoSum)
-add_subdirectory(ReverseInteger)
 add_subdirectory(LongestSubstring)
+add_subdirectory(PalindromeNumber)
+add_subdirectory(ReverseInteger)
+add_subdirectory(TwoSum)

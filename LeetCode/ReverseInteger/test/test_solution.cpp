@@ -11,74 +11,74 @@ TEST(ReverseInteger_Solution, defaultConstructor)
 	Solution uut;
 }
 
-TEST(ReverseInteger_Solution, reverseGivenInputExample1)
+TEST(ReverseInteger_Solution, reverse_GivenInputExample1)
 {
-	int input = 123;
-	int expected = 321;
+	const int input = 123;
+	const int expected = 321;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(ReverseInteger_Solution, reverseGivenInputExample2)
+TEST(ReverseInteger_Solution, reverse_GivenInputExample2)
 {
-	int input = -123;
-	int expected = -321;
+	const int input = -123;
+	const int expected = -321;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(ReverseInteger_Solution, reverseGivenInputExample3)
+TEST(ReverseInteger_Solution, reverse_GivenInputExample3)
 {
-	int input = 120;
-	int expected = 21;
+	const int input = 120;
+	const int expected = 21;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(ReverseInteger_Solution, reverseGivenInputExample4)
+TEST(ReverseInteger_Solution, reverse_GivenInputExample4)
 {
-	int input = 0;
-	int expected = 0;
+	const int input = 0;
+	const int expected = 0;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(ReverseInteger_Solution, reverseZeroInMiddleOfNumber)
+TEST(ReverseInteger_Solution, reverse_ZeroInMiddleOfNumber)
 {
-	int input = 901;
-	int expected = 109;
+	const int input = 901;
+	const int expected = 109;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(ReverseInteger_Solution, reverseMultiply10Overflow)
+TEST(ReverseInteger_Solution, reverse_Multiply10Overflow)
 {
-	int input = 1000000009;
-	int expected = 0;
+	const int input = 1000000009;
+	const int expected = 0;
 
 	Solution uut;
 
-	int actual = uut.reverse(input);
+	const int actual = uut.reverse(input);
 
 	ASSERT_EQ(expected, actual);
 }

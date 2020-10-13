@@ -3,11 +3,12 @@
 ---
 BasedOnStyle: LLVM
 ColumnLimit: 120
-IndentWidth: 8
----
-AccessModifierOffset: -8
+IndentWidth: 4  # Width is 4 so as not to consume much of the ColumnLimit
+TabWidth: 4  # Should be the same value as IndentWidth
+AccessModifierOffset: -4  # Do not indent access modifiers, e.g. `public`
+UseTab: ForIndentation  # Tabs are used to facilitate personal tab width preferences
 Language: Cpp
-Standard: Cpp11
+Standard: Latest
 
 BreakBeforeBraces: Custom
 BraceWrapping:
@@ -44,5 +45,4 @@ PointerAlignment: Middle
 SpaceAfterCStyleCast: true
 SpaceBeforeCpp11BracedList: true
 SpacesBeforeTrailingComments: 2
-UseTab: ForIndentation
 ...

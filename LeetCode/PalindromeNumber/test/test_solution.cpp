@@ -55,3 +55,15 @@ TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample4)
 
 	ASSERT_EQ(expected, actual);
 }
+
+TEST(PalindromeNumber_Solution, isPalindrome_EvenDigitCount)
+{
+	const int input = 1221;
+	const bool expected = true;
+
+	Solution uut;
+
+	const bool actual = uut.isPalindrome(input);
+
+	ASSERT_EQ(expected, actual);
+}

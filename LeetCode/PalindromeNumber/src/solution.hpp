@@ -20,6 +20,12 @@ public:
 		//    If the number is negative, return false.
 		//    Read digits from the integer via modulo 10. Add each integer to a stack and a queue.
 		//    Pop each value from queue/stack in pairs and compare them. If they all match, the number is a palindrome.
+		//
+		//    Calculate the quantity of digits in the number (e.g. Log10(number) + 1)
+		//    Compare indices offset from the front and the back the number:
+		//
+		//        NNNNNNN  ->  NNNNNNN  ->  NNNNNNN  ->  NNNNNNN
+		//        ^     ^       ^   ^         ^ ^           ^
 
 		bool status = true;
 

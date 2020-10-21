@@ -122,12 +122,20 @@ bool isPalindromeStrategyTwo(int x)
 	        ^     ^       ^   ^         ^ ^           ^
 	*/
 
+	bool is_palindrome = true;
 	const int num_digits = numDigits(x);
-	const int digit1 = extractDigit(x, 0);
-	const int digit2 = extractDigit(x, 1);
-	const int digit3 = extractDigit(x, 2);
 
-	return true;
+	if (x < 0) {
+		is_palindrome = false;
+	}
+
+	for (int i = 0; is_palindrome && i < num_digits; ++i) {
+		if (extractDigit(x, i) != extractDigit(x, num_digits - i - 1)) {
+			is_palindrome = false;
+		}
+	}
+
+	return is_palindrome;
 }
 
 }  // namespace

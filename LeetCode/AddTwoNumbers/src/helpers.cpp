@@ -25,11 +25,11 @@ bool operator==(const ListNode & l1, const ListNode & l2)
 			const bool equal_val = lhs->val == rhs->val;
 			const bool equal_next_existence = (lhs->next == nullptr) == (rhs->next == nullptr);
 
-			if (!equal_val || !equal_next_existence) {
-				is_equal = false;
-			}
+            if (!equal_val || !equal_next_existence) {
+                is_equal = false;
+            }
 
-			lhs = lhs->next;
+            lhs = lhs->next;
 			rhs = rhs->next;
 		}
 	}

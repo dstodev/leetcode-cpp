@@ -8,14 +8,14 @@
 class Solution
 {
 public:
-	static bool isValid(const std::string& input)
+	static bool isValid(const std::string & input)
 	{
 		bool valid = false;
 		std::stack<char> braces;
 
 		for (char brace : input) {
 			char target = '\0';
-            valid = false;
+			valid = false;
 
 			switch (brace) {
 			case '(':
@@ -27,11 +27,11 @@ public:
 
 			case '}':
 				target = '{';
-                break;
+				break;
 
 			case ']':
 				target = '[';
-                break;
+				break;
 
 			case ')':
 				target = '(';
@@ -41,10 +41,10 @@ public:
 				break;
 			}
 
-            if (!braces.empty() && braces.top() == target) {
-                braces.pop();
-                valid = true;
-            }
+			if (!braces.empty() && braces.top() == target) {
+				braces.pop();
+				valid = true;
+			}
 
 			if (!valid) {
 				break;

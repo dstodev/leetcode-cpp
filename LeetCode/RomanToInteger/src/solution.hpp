@@ -14,7 +14,7 @@ public:
 
 		while (it < input.end()) {
 			std::string token = getNextToken(it, input.end());
-			value += mapTokenToUint(token);
+			value += decodeToken(token);
 		}
 
 		return value;
@@ -40,7 +40,7 @@ public:
 				break;
 
 			case 'X':
-				// (X(?:L|C)?)
+				// (X[LC]?)
 				token = *it++;
 				if (it < end && (*it == 'L' || *it == 'C')) {
 					token += *it++;
@@ -48,7 +48,7 @@ public:
 				break;
 
 			case 'C':
-				// (C(:?:D|M)?)
+				// (C[DM]?)
 				token = *it++;
 				if (it < end && (*it == 'D' || *it == 'M')) {
 					token += *it++;
@@ -70,9 +70,9 @@ public:
 		return token;
 	}
 
-	static int mapTokenToUint(const std::string & token)
+	static int decodeToken(const std::string & token)
 	{
-		int value = 0;
+		int value = -1;
 
 		if (token == "I") {
 			value = 1;
@@ -118,9 +118,6 @@ public:
 		}
 		else if (token == "M") {
 			value = 1000;
-		}
-		else {
-			value = -1;
 		}
 
 		return value;

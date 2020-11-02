@@ -284,7 +284,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_I)
 	const int expected = 1;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -295,7 +295,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_II)
 	const int expected = 2;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -306,7 +306,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_III)
 	const int expected = 3;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -317,7 +317,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_IV)
 	const int expected = 4;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -328,7 +328,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_V)
 	const int expected = 5;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -339,7 +339,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_IX)
 	const int expected = 9;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -350,7 +350,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_X)
 	const int expected = 10;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -361,7 +361,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_XL)
 	const int expected = 40;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -372,7 +372,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_L)
 	const int expected = 50;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -383,7 +383,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_XC)
 	const int expected = 90;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -394,7 +394,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_C)
 	const int expected = 100;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -405,7 +405,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_CD)
 	const int expected = 400;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -416,7 +416,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_D)
 	const int expected = 500;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -427,7 +427,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_CM)
 	const int expected = 900;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -438,7 +438,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_M)
 	const int expected = 1000;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }
@@ -449,7 +449,7 @@ TEST(RomanToInteger_Solution, mapTokenToUint_bad)
 	const int expected = -1;
 
 	auto it = input.begin();
-	const int actual = Solution::mapTokenToUint(input);
+	const int actual = Solution::decodeToken(input);
 
 	ASSERT_EQ(expected, actual);
 }

@@ -9,6 +9,7 @@ using std::string;
 TEST(LongestSubstring_Solution, defaultConstructor)
 {
 	Solution uut;
+	(void) uut;
 }
 
 TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample1)

@@ -7,6 +7,7 @@
 TEST(AddTwoNumbers_Solution, defaultConstructor)
 {
 	Solution uut;
+	(void) uut;
 }
 
 TEST(AddTwoNumbers_Solution, addTwoNumbers_GivenInput)

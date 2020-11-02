@@ -6,6 +6,7 @@
 TEST(PalindromeNumber_Solution, defaultConstructor)
 {
 	Solution uut;
+	(void) uut;
 }
 
 TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample1)

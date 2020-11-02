@@ -9,6 +9,7 @@ using std::string;
 TEST(ReverseInteger_Solution, defaultConstructor)
 {
 	Solution uut;
+	(void) uut;
 }
 
 TEST(ReverseInteger_Solution, reverse_GivenInputExample1)

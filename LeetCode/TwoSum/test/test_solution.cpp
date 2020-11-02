@@ -9,6 +9,7 @@ using std::vector;
 TEST(TwoSum_Solution, defaultConstructor)
 {
 	Solution uut;
+	(void) uut;
 }
 
 TEST(TwoSum_Solution, twoSum_GivenInputExample1)

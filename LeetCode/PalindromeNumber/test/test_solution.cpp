@@ -9,7 +9,7 @@ TEST(PalindromeNumber_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample1)
+TEST(PalindromeNumber_Solution, isPalindrome_givenInputExample1)
 {
 	const int input = 121;
 	const bool expected = true;
@@ -21,7 +21,7 @@ TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample1)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample2)
+TEST(PalindromeNumber_Solution, isPalindrome_givenInputExample2)
 {
 	const int input = -121;
 	const bool expected = false;
@@ -33,7 +33,7 @@ TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample2)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample3)
+TEST(PalindromeNumber_Solution, isPalindrome_givenInputExample3)
 {
 	const int input = 10;
 	const bool expected = false;
@@ -45,7 +45,7 @@ TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample3)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample4)
+TEST(PalindromeNumber_Solution, isPalindrome_givenInputExample4)
 {
 	const int input = -101;
 	const bool expected = false;
@@ -57,7 +57,7 @@ TEST(PalindromeNumber_Solution, isPalindrome_GivenInputExample4)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(PalindromeNumber_Solution, isPalindrome_EvenDigitCount)
+TEST(PalindromeNumber_Solution, isPalindrome_evenDigitCount)
 {
 	const int input = 1221;
 	const bool expected = true;

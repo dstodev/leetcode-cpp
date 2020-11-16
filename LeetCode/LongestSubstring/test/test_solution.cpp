@@ -12,7 +12,7 @@ TEST(LongestSubstring_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample1)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_givenInputExample1)
 {
 	const string input {"abcabcbb"};
 	const int expected = 3;  // "abc"
@@ -24,7 +24,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample1)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample2)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_givenInputExample2)
 {
 	const string input {"bbbbb"};
 	const int expected = 1;  // "b"
@@ -36,7 +36,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample2)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample3)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_givenInputExample3)
 {
 	const string input {"pwwkew"};
 	const int expected = 3;  // "wke"
@@ -48,7 +48,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample3)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample4)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_givenInputExample4)
 {
 	const string input;
 	const int expected = 0;  // ""
@@ -60,7 +60,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstring_GivenInputExample4)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstring_EndOfString)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_endOfString)
 {
 	const string input {"1231234"};
 	const int expected = 4;  // "1234"
@@ -72,7 +72,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstring_EndOfString)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringOneCharacter)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_oneCharacter)
 {
 	const string input {"1"};
 	const int expected = 1;  // "1"
@@ -84,7 +84,7 @@ TEST(LongestSubstring_Solution, lengthOfLongestSubstringOneCharacter)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(LongestSubstring_Solution, lengthOfLongestSubstringPalindrome)
+TEST(LongestSubstring_Solution, lengthOfLongestSubstring_palindrome)
 {
 	const string input {"1221"};
 	const int expected = 2;  // "12" or "21"

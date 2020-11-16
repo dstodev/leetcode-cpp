@@ -12,7 +12,7 @@ TEST(RomanToInteger_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(RomanToInteger_Solution, romanToInt_GivenInputExample1)
+TEST(RomanToInteger_Solution, romanToInt_givenInputExample1)
 {
 	const string input = "III";
 	const int expected = 3;
@@ -22,7 +22,7 @@ TEST(RomanToInteger_Solution, romanToInt_GivenInputExample1)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(RomanToInteger_Solution, romanToInt_GivenInputExample2)
+TEST(RomanToInteger_Solution, romanToInt_givenInputExample2)
 {
 	const string input = "IV";
 	const int expected = 4;
@@ -32,7 +32,7 @@ TEST(RomanToInteger_Solution, romanToInt_GivenInputExample2)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(RomanToInteger_Solution, romanToInt_GivenInputExample3)
+TEST(RomanToInteger_Solution, romanToInt_givenInputExample3)
 {
 	const string input = "IX";
 	const int expected = 9;
@@ -42,7 +42,7 @@ TEST(RomanToInteger_Solution, romanToInt_GivenInputExample3)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(RomanToInteger_Solution, romanToInt_GivenInputExample4)
+TEST(RomanToInteger_Solution, romanToInt_givenInputExample4)
 {
 	const string input = "LVIII";
 	const int expected = 58;
@@ -52,7 +52,7 @@ TEST(RomanToInteger_Solution, romanToInt_GivenInputExample4)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(RomanToInteger_Solution, romanToInt_GivenInputExample5)
+TEST(RomanToInteger_Solution, romanToInt_givenInputExample5)
 {
 	const string input = "MCMXCIV";
 	const int expected = 1994;

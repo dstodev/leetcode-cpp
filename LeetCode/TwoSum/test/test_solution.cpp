@@ -12,7 +12,7 @@ TEST(TwoSum_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(TwoSum_Solution, twoSum_GivenInputExample1)
+TEST(TwoSum_Solution, twoSum_givenInputExample1)
 {
 	const vector<int> expected {0, 1};
 	const vector<int> nums {2, 7, 11, 15};
@@ -25,7 +25,7 @@ TEST(TwoSum_Solution, twoSum_GivenInputExample1)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(TwoSum_Solution, twoSum_GivenInputExample2)
+TEST(TwoSum_Solution, twoSum_givenInputExample2)
 {
 	const vector<int> expected {1, 2};
 	const vector<int> nums {3, 2, 4};
@@ -38,7 +38,7 @@ TEST(TwoSum_Solution, twoSum_GivenInputExample2)
 	ASSERT_EQ(expected, actual);
 }
 
-TEST(TwoSum_Solution, twoSum_GivenInputExample3)
+TEST(TwoSum_Solution, twoSum_givenInputExample3)
 {
 	const vector<int> expected {0, 1};
 	const vector<int> nums {3, 3};

@@ -9,5 +9,5 @@ TEST(PROJECTNAME_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(PROJECTNAME_Solution, FUNCTIONNAME_GivenInputExample1)
+TEST(PROJECTNAME_Solution, FUNCTIONNAME_givenInputExample1)
 {}

@@ -2,7 +2,7 @@
 #define SOLUTION_H
 
 #include <string>
-#include <vector>
+#include <unordered_set>
 
 
 class Solution
@@ -10,35 +10,34 @@ class Solution
 public:
 	static std::vector<std::string> generateParenthesis(int input)
 	{
-		std::vector<std::string> permutations;
+		auto permutations = populatePermutations(static_cast<size_t>(input));
+		return std::vector<std::string>(permutations.begin(), permutations.end());
+	}
 
-		/*
-		 * n = 3
-		 *
-		 * ((()))
-		 * (())()
-		 * ()(())
-		 * ()()()
-		 * (()())
-		 *
-		 * Pivot?
-		 * ((()))
-		 *   ^
-		 * (())()
-		 *  ^
-		 * ()(())
-		 * ^
-		 *
-		 * Recursive?
-		 * (()())
-		 *
-		 * Graph permutations
-		 * Each node is a pair of parentheses, and they can contain other nodes to implement nesting.
-		 */
+	static std::unordered_set<std::string> populatePermutations(size_t num_rows)
+	{
+		std::unordered_set<std::string> permutations;
+		std::string permutation;
 
-		permutations.emplace_back("()");
+		for (size_t i = 0; i < num_rows; ++i) {
+			permutation = "()";
+			permutations.insert(permutation);
+		}
 
 		return permutations;
+	}
+
+	static std::unordered_set<std::string> scanInsert(const std::string & input)
+	{
+		std::unordered_set<string> set;
+
+		for (size_t i = 0; i <= input.size(); ++i) {
+			std::string item = input;
+			item.insert(i, "()");
+			set.insert(item);
+		}
+
+		return set;
 	}
 };
 

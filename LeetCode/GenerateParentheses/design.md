@@ -1,10 +1,7 @@
 # GenerateParentheses Design
-
-## Sample parentheses permutations
-
-Red edges denote possible paths which I theorize to be more algorithmically complicated than other paths to the same nodes.
+## Theory
+Calculate all possible permutations of up to N valid pairs of parentheses:
 ```plantuml
-
 digraph parentheses {
     node [fontname="consolas"]
     
@@ -21,8 +18,47 @@ digraph parentheses {
 
     "(())" -> "((()))"
     "(())" -> "(()())"
-    edge [color="red"]
     "(())" -> "()(())"
     "(())" -> "(())()"
 }
 ```
+## Solution ideas
+### Lateral Insertion
+Insert parenthesis pairs left-to-right in valid positions, based on previous roots:
+```
+## n = 1 ####
+## root: none
+  ()
+  ^^
+## n = 2 ####
+## root: ()
+  ()()
+  ^^
+  (())
+   ^^
+## n = 3 ####
+## root: ()()
+  ()()()
+  ^^
+  (())()
+   ^^
+  ()()()
+    ^^
+  ()(())
+     ^^
+  ()()()
+      ^^
+
+## root: (())
+  ()(())
+  ^^
+  (()())
+   ^^
+  ((()))
+    ^^
+  (()())
+     ^^
+  (())()
+      ^^
+```
+Then discard duplicates.

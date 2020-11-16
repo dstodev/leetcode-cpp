@@ -10,7 +10,7 @@ TEST(AddTwoNumbers_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(AddTwoNumbers_Solution, addTwoNumbers_GivenInput)
+TEST(AddTwoNumbers_Solution, addTwoNumbers_givenInput)
 {
 	const auto l1 = createList(2, 4, 3);
 	const auto l2 = createList(5, 6, 4);
@@ -27,7 +27,7 @@ TEST(AddTwoNumbers_Solution, addTwoNumbers_GivenInput)
 	deleteList(actual);
 }
 
-TEST(AddTwoNumbers_Solution, addTwoNumbers_InequalArgCount)
+TEST(AddTwoNumbers_Solution, addTwoNumbers_inequalArgCount)
 {
 	const auto l1 = createList(1, 2, 3, 4);
 	const auto l2 = createList(5, 6);

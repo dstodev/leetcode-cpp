@@ -7,6 +7,9 @@ using std::string;
 #include <algorithm>
 using std::is_permutation;
 
+#include <unordered_set>
+using std::unordered_set;
+
 #include <gtest/gtest.h>
 
 #include <solution.hpp>
@@ -18,7 +21,7 @@ TEST(GenerateParentheses_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(GenerateParentheses_Solution, generateParenthesis_GivenInputExample1)
+TEST(GenerateParentheses_Solution, DISABLED_generateParenthesis_givenInputExample1)
 {
 	const int input = 3;
 	const vector<string> expected {"((()))", "(()())", "(())()", "()(())", "()()()"};
@@ -29,7 +32,7 @@ TEST(GenerateParentheses_Solution, generateParenthesis_GivenInputExample1)
 	ASSERT_TRUE(is_permutation(expected.begin(), expected.end(), actual.begin()));
 }
 
-TEST(GenerateParentheses_Solution, generateParenthesis_GivenInputExample2)
+TEST(GenerateParentheses_Solution, generateParenthesis_givenInputExample2)
 {
 	const int input = 1;
 	const vector<string> expected {"()"};
@@ -38,4 +41,44 @@ TEST(GenerateParentheses_Solution, generateParenthesis_GivenInputExample2)
 
 	ASSERT_EQ(expected.size(), actual.size());
 	ASSERT_TRUE(is_permutation(expected.begin(), expected.end(), actual.begin()));
+}
+
+TEST(GenerateParentheses_Solution, scanInsert_emptyString)
+{
+	const string input = "";
+	const unordered_set<string> expected {"()"};
+
+	const unordered_set<string> actual = Solution::scanInsert(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(GenerateParentheses_Solution, scanInsert_onePair)
+{
+	const string input = "()";
+	const unordered_set<string> expected {"()()", "(())"};
+
+	const unordered_set<string> actual = Solution::scanInsert(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(GenerateParentheses_Solution, scanInsert_twoPairVariantOne)
+{
+	const string input = "()()";
+	const unordered_set<string> expected {"()()()", "()(())", "(())()"};
+
+	const unordered_set<string> actual = Solution::scanInsert(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(GenerateParentheses_Solution, scanInsert_twoPairVariantTwo)
+{
+	const string input = "(())";
+	const unordered_set<string> expected {"(())()", "(()())", "((()))", "()(())"};
+
+	const unordered_set<string> actual = Solution::scanInsert(input);
+
+	ASSERT_EQ(expected, actual);
 }

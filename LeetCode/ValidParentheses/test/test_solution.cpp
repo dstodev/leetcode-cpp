@@ -12,7 +12,7 @@ TEST(ValidParentheses_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(ValidParentheses_Solution, isValid_GivenInputExample1)
+TEST(ValidParentheses_Solution, isValid_givenInputExample1)
 {
 	const string input = "()";
 
@@ -21,7 +21,7 @@ TEST(ValidParentheses_Solution, isValid_GivenInputExample1)
 	ASSERT_TRUE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_GivenInputExample2)
+TEST(ValidParentheses_Solution, isValid_givenInputExample2)
 {
 	const string input = "()[]{}";
 
@@ -30,7 +30,7 @@ TEST(ValidParentheses_Solution, isValid_GivenInputExample2)
 	ASSERT_TRUE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_GivenInputExample3)
+TEST(ValidParentheses_Solution, isValid_givenInputExample3)
 {
 	const string input = "(]";
 
@@ -39,7 +39,7 @@ TEST(ValidParentheses_Solution, isValid_GivenInputExample3)
 	ASSERT_FALSE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_GivenInputExample4)
+TEST(ValidParentheses_Solution, isValid_givenInputExample4)
 {
 	const string input = "([)]";
 
@@ -48,7 +48,7 @@ TEST(ValidParentheses_Solution, isValid_GivenInputExample4)
 	ASSERT_FALSE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_MultipleSameParentheses)
+TEST(ValidParentheses_Solution, isValid_multipleSameParentheses)
 {
 	const string input = "(())[[]]{{}}";
 
@@ -57,7 +57,7 @@ TEST(ValidParentheses_Solution, isValid_MultipleSameParentheses)
 	ASSERT_TRUE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_ComplexInput)
+TEST(ValidParentheses_Solution, isValid_complexInput)
 {
 	const string input = "([]((){})())";
 
@@ -66,7 +66,7 @@ TEST(ValidParentheses_Solution, isValid_ComplexInput)
 	ASSERT_TRUE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_NoInput)
+TEST(ValidParentheses_Solution, isValid_noInput)
 {
 	const string input;
 
@@ -75,7 +75,7 @@ TEST(ValidParentheses_Solution, isValid_NoInput)
 	ASSERT_FALSE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_OneOpeningCharacter)
+TEST(ValidParentheses_Solution, isValid_oneOpeningCharacter)
 {
 	const string input = "(";
 
@@ -84,7 +84,7 @@ TEST(ValidParentheses_Solution, isValid_OneOpeningCharacter)
 	ASSERT_FALSE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_OneClosingCharacter)
+TEST(ValidParentheses_Solution, isValid_oneClosingCharacter)
 {
 	const string input = ")";
 
@@ -93,7 +93,7 @@ TEST(ValidParentheses_Solution, isValid_OneClosingCharacter)
 	ASSERT_FALSE(actual);
 }
 
-TEST(ValidParentheses_Solution, isValid_NotBrackets)
+TEST(ValidParentheses_Solution, isValid_notBrackets)
 {
 	const string input = "no-brackets-here";
 

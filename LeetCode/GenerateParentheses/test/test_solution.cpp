@@ -21,7 +21,7 @@ TEST(GenerateParentheses_Solution, defaultConstructor)
 	(void) uut;
 }
 
-TEST(GenerateParentheses_Solution, DISABLED_generateParenthesis_givenInputExample1)
+TEST(GenerateParentheses_Solution, generateParenthesis_givenInputExample1)
 {
 	const int input = 3;
 	const vector<string> expected {"((()))", "(()())", "(())()", "()(())", "()()()"};
@@ -41,6 +41,36 @@ TEST(GenerateParentheses_Solution, generateParenthesis_givenInputExample2)
 
 	ASSERT_EQ(expected.size(), actual.size());
 	ASSERT_TRUE(is_permutation(expected.begin(), expected.end(), actual.begin()));
+}
+
+TEST(GenerateParentheses_Solution, getPermutations_n1)
+{
+	const size_t input = 1;
+	const unordered_set<string> expected {"()"};
+
+	const unordered_set<string> actual = Solution::getPermutations(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(GenerateParentheses_Solution, getPermutations_n2)
+{
+	const size_t input = 2;
+	const unordered_set<string> expected {"()()", "(())"};
+
+	const unordered_set<string> actual = Solution::getPermutations(input);
+
+	ASSERT_EQ(expected, actual);
+}
+
+TEST(GenerateParentheses_Solution, getPermutations_n3)
+{
+	const size_t input = 3;
+	const unordered_set<string> expected {"()()()", "()(())", "(())()", "(()())", "((()))"};
+
+	const unordered_set<string> actual = Solution::getPermutations(input);
+
+	ASSERT_EQ(expected, actual);
 }
 
 TEST(GenerateParentheses_Solution, scanInsert_emptyString)

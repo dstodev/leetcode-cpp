@@ -10,29 +10,35 @@ class Solution
 public:
 	static std::vector<std::string> generateParenthesis(int input)
 	{
-		auto permutations = populatePermutations(static_cast<size_t>(input));
+		auto permutations = getPermutations(static_cast<size_t>(input));
 		return std::vector<std::string>(permutations.begin(), permutations.end());
 	}
 
-	static std::unordered_set<std::string> populatePermutations(size_t num_rows)
+	static std::unordered_set<std::string> getPermutations(size_t num_rows)
 	{
-		std::unordered_set<std::string> permutations;
-		std::string permutation;
+		std::unordered_set<std::string> permutations {"()"};
+		std::unordered_set<std::string> intermediates;
 
-		for (size_t i = 0; i < num_rows; ++i) {
-			permutation = "()";
-			permutations.insert(permutation);
+		for (size_t i = 1; i < num_rows; ++i) {
+			intermediates.clear();
+
+			for (const std::string & root : permutations) {
+				auto temp = scanInsert(root);
+				intermediates.insert(temp.begin(), temp.end());
+			}
+
+			permutations = intermediates;
 		}
 
 		return permutations;
 	}
 
-	static std::unordered_set<std::string> scanInsert(const std::string & input)
+	static std::unordered_set<std::string> scanInsert(const std::string & root)
 	{
-		std::unordered_set<string> set;
+		std::unordered_set<std::string> set;
 
-		for (size_t i = 0; i <= input.size(); ++i) {
-			std::string item = input;
+		for (size_t i = 0; i <= root.size(); ++i) {
+			std::string item = root;
 			item.insert(i, "()");
 			set.insert(item);
 		}

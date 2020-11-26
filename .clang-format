@@ -37,7 +37,7 @@ BinPackArguments: true
 BinPackParameters: true
 BreakBeforeBinaryOperators: NonAssignment
 BreakConstructorInitializers: BeforeComma
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
 IncludeBlocks: Preserve
 IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2

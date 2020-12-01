@@ -9,6 +9,11 @@ target_include_directories(runaway
 	${CMAKE_CURRENT_LIST_DIR}
 )
 
+target_compile_features(runaway
+	PRIVATE
+	cxx_std_17
+	)
+
 if (WIN32)
 	target_include_directories(runaway
 		PUBLIC

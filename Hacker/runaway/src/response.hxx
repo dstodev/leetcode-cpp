@@ -3,8 +3,7 @@
 
 
 struct Response
-{
-};
+{};
 
 
 #endif  // CPPKATA_RESPONSE_HXX

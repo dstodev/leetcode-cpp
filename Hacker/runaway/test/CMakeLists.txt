@@ -1,11 +1,12 @@
 include(GoogleTest)
 
-set(target_name test_runaway)
+set(target_name Hacker_test_runaway)
 
 add_executable(${target_name}
 	test_request
 
 	windows/test_exceptions
+	windows/test_socket
 )
 
 target_link_libraries(${target_name}

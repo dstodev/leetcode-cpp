@@ -8,21 +8,24 @@
  * (retrieved 11/25/2020)
  */
 
-#include <winsock2.h>
 #include <exception>
+#include <winsock2.h>
 
 using std::exception;
 
 void map_to_exception(int status);
 
-#define WinsockException(Type, message) \
-class Type : public exception { \
-public: \
-    virtual const char *what() const noexcept override { \
-        return message; \
-    } \
-}
+#define WinsockException(Type, message)                     \
+	class Type : public exception                           \
+	{                                                       \
+	public:                                                 \
+		virtual const char * what() const noexcept override \
+		{                                                   \
+			return #Type ": " message;                      \
+		}                                                   \
+	}
 
+// clang-format off
 WinsockException(WsaInvalidHandle,
                  "Specified event object handle is invalid.\nAn application attempts to use an event object, but the specified handle is not valid.");
 
@@ -99,7 +102,7 @@ WinsockException(WsaEAFNoSupport,
                  "Address family not supported by protocol family.\nAn address incompatible with the requested protocol was used. All sockets are created with an associated address family (that is, AF_INET for Internet Protocols) and a generic protocol type (that is, SOCK_STREAM). This error is returned if an incorrect protocol is explicitly requested in the socket call, or if an address of the wrong family is used for a socket, for example, in sendto.");
 
 WinsockException(WsaEAddrInUse,
-                 "Address already in use.\nTypically, only one usage of each socket address (protocol/IP address/port) is permitted. This error occurs if an application attempts to bind a socket to an IP address/port that has already been used for an existing socket, or a socket that was not closed properly, or one that is still in the process of closing. For server applications that need to bind multiple sockets to the same port number, consider using setsockopt (SO_REUSEADDR). Client applications usually need not call bind at all—connect chooses an unused port automatically. When bind is called with a wildcard address (involving ADDR_ANY), a WSAEADDRINUSE error could be delayed until the specific address is committed. This could happen with a call to another function later, including connect, listen, WSAConnect, or WSAJoinLeaf.");
+                 "Address already in use.\nTypically, only one usage of each socket address (protocol/IP address/port) is permitted. This error occurs if an application attempts to bind a socket to an IP address/port that has already been used for an existing socket, or a socket that was not closed properly, or one that is still in the process of closing. For server applications that need to bind multiple sockets to the same port number, consider using setsockopt (SO_REUSEADDR). Client applications usually need not call bind at all—connect chooses an unused port automatically. When bind is called with a wildcard address (involving ADDR_ANY), a WSAEADDRINUSE error could be delayed until the specific address is committed. This could happen with a call to another function later, including connect, bind, WSAConnect, or WSAJoinLeaf.");
 
 WinsockException(WsaEAddrNotAvail,
                  "Cannot assign requested address.\nThe requested address is not valid in its context. This normally results from an attempt to bind to an address that is not valid for the local computer. This can also result from connect, sendto, WSAConnect, WSAJoinLeaf, or WSASendTo when the remote address or port is not valid for a remote computer (for example, address or port 0).");
@@ -307,5 +310,6 @@ WinsockException(WsaQosEShapeRateObj,
 
 WinsockException(WsaQosReservedPEType,
                  "Reserved policy QoS element type.\nA reserved policy element was found in the QoS provider-specific buffer.");
+// clang-format on
 
 #endif  // CPPKATA_EXCEPTIONS_HXX

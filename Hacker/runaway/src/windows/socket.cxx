@@ -13,6 +13,7 @@ Socket::Socket()
 {
 	int status;
 
+	// TODO: Obliterate this because it should probably only happen once; like, in main()
 	// Initialize Winsock
 	status = WSAStartup(MAKEWORD(2, 2), &_data);
 	if (status != 0) {
@@ -27,6 +28,10 @@ Socket::Socket()
 
 Socket::~Socket()
 {
+	if ((_hints.ai_flags & AI_PASSIVE) == 0) {
+		// Client cleanup
+		shutdown(_sock, SD_SEND);
+	}
 	closesocket(_sock);
 	WSACleanup();
 }
@@ -98,18 +103,11 @@ void Socket::bind(const char * port)
 		map_to_exception(status);
 	}
 
-	// Set non-blocking mode on the socket
-	int mode = 1;
-	DWORD bytes;
-	status = WSAIoctl(sock, FIONBIO, &mode, sizeof(mode), nullptr, 0, &bytes, nullptr, nullptr);
-	if (status == SOCKET_ERROR) {
-		status = WSAGetLastError();
-		freeaddrinfo(result);
-		map_to_exception(status);
-	}
-
 	freeaddrinfo(result);
 	_sock = sock;
+
+	// Set non-blocking mode on the socket
+	set_blocking(false);
 }
 
 void Socket::listen(size_t max_queue)
@@ -117,6 +115,18 @@ void Socket::listen(size_t max_queue)
 	int status;
 
 	status = ::listen(_sock, max_queue);
+	if (status == SOCKET_ERROR) {
+		status = WSAGetLastError();
+		map_to_exception(status);
+	}
+}
+
+void Socket::set_blocking(bool mode)
+{
+	DWORD bytes;
+	auto converted_mode = static_cast<unsigned long>(!mode);
+	int status =
+	    WSAIoctl(_sock, FIONBIO, &converted_mode, sizeof(converted_mode), nullptr, 0, &bytes, nullptr, nullptr);
 	if (status == SOCKET_ERROR) {
 		status = WSAGetLastError();
 		map_to_exception(status);

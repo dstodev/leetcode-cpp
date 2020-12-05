@@ -1,29 +1,31 @@
-add_library(runaway
+set(target_name runaway)
+
+add_library(${target_name}
 	gameboard
 	request
 	response
 )
 
-target_include_directories(runaway
+target_include_directories(${target_name}
 	PUBLIC
 	${CMAKE_CURRENT_LIST_DIR}
 )
 
-target_compile_features(runaway
+target_compile_features(${target_name}
 	PRIVATE
 	cxx_std_17
-	)
+)
 
 if (WIN32)
-	target_include_directories(runaway
+	target_include_directories(${target_name}
 		PUBLIC
 			${CMAKE_CURRENT_LIST_DIR}/windows
 	)
-	target_link_libraries(runaway
+	target_link_libraries(${target_name}
 		PRIVATE
 			ws2_32
 	)
-	target_sources(runaway
+	target_sources(${target_name}
 		PRIVATE
 			windows/socket
 			windows/exceptions

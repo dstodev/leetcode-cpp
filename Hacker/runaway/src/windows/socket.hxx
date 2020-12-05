@@ -2,8 +2,8 @@
 #define CPPKATA_SOCKET_HXX
 
 #include <functional>
+#include <future>
 #include <memory>
-#include <thread>
 #include <vector>
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -12,7 +12,7 @@
 
 template <typename... Args>
 using accept_callback =
-    std::function<void(SOCKET client, std::unique_ptr<sockaddr_in6> addr, std::unique_ptr<int> addr_len, Args...)>;
+    std::function<void(SOCKET client, std::unique_ptr<sockaddr_in6> addr, std::unique_ptr<int> addr_len, Args... args)>;
 
 class Socket
 {
@@ -26,25 +26,39 @@ public:
 	// Server functions
 	void bind(const char * port);
 	void listen(size_t max_queue);
+	void set_blocking(bool mode);
 
 	template <typename... Args>
-	void accept(const accept_callback<Args...> & callback, Args &&... args);
+	std::future<bool> accept(const accept_callback<Args...> & callback, Args &&... args);
 
 private:
 	SOCKET _sock;
 	WSADATA _data;
 	struct addrinfo _hints;
+
+	template <typename... Args>
+	static bool accept_thread(SOCKET sock, const accept_callback<Args...> & callback, Args &&... args);
 };
 
+template <typename... Args>
+std::future<bool> Socket::accept(const accept_callback<Args...> & callback, Args &&... args)
+{
+	std::future<bool> future;
+
+	future = std::async(accept_thread<Args...>, _sock, callback, std::ref(args)...);
+
+	return future;
+}
 
 template <typename... Args>
-void Socket::accept(const accept_callback<Args...> & callback, Args &&... args)
+bool Socket::accept_thread(SOCKET sock, const accept_callback<Args...> & callback, Args &&... args)
 {
 	int status;
 	auto addr = std::make_unique<sockaddr_in6>();
 	auto addr_len = std::make_unique<int>(sizeof(*addr));
+	bool fired = false;
 
-	SOCKET client_sock = ::accept(_sock, (sockaddr *) addr.get(), addr_len.get());
+	SOCKET client_sock = ::accept(sock, (sockaddr *) addr.get(), addr_len.get());
 	if (client_sock == INVALID_SOCKET) {
 		status = WSAGetLastError();
 
@@ -54,8 +68,11 @@ void Socket::accept(const accept_callback<Args...> & callback, Args &&... args)
 		}
 	}
 	else {
-		std::thread(callback, client_sock, move(addr), move(addr_len), std::ref(args)...).detach();
+		callback(client_sock, std::move(addr), std::move(addr_len), std::forward<Args>(args)...);
+		fired = true;
 	}
+
+	return fired;
 }
 
 #endif  // CPPKATA_SOCKET_HXX

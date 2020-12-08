@@ -29,5 +29,6 @@ if (WIN32)
 		PRIVATE
 			windows/socket
 			windows/exceptions
+			windows/wsawrapper
 	)
 endif ()

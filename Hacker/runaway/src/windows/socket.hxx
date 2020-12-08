@@ -11,8 +11,8 @@
 #include "exceptions.hxx"
 
 template <typename... Args>
-using accept_callback =
-    std::function<void(SOCKET client, std::unique_ptr<sockaddr_in6> addr, std::unique_ptr<int> addr_len, Args... args)>;
+using accept_callback = std::function<
+    void(SOCKET client, std::unique_ptr<sockaddr_in6> addr, std::unique_ptr<int> addr_len, Args... args)>;
 
 class Socket
 {
@@ -33,7 +33,6 @@ public:
 
 private:
 	SOCKET _sock;
-	WSADATA _data;
 	struct addrinfo _hints;
 
 	template <typename... Args>
@@ -45,7 +44,7 @@ std::future<bool> Socket::accept(const accept_callback<Args...> & callback, Args
 {
 	std::future<bool> future;
 
-	future = std::async(accept_thread<Args...>, _sock, callback, std::ref(args)...);
+	future = std::async(accept_thread<Args...>, _sock, callback, std::ref(std::forward<Args>(args))...);
 
 	return future;
 }

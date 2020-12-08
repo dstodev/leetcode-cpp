@@ -1,3 +1,4 @@
+#include "test_socket.hxx"
 #include <chrono>
 #include <exceptions.hxx>
 #include <future>
@@ -29,47 +30,45 @@ void BooleanAcceptCallback(SOCKET client, unique_ptr<sockaddr_in6> addr, unique_
 	in = true;
 }
 
-TEST(RunawayWindowsSocket, constructor)
+TEST_F(RunawayWindowsSocket, constructor)
 {
-	Socket uut;
 	(void) uut;
 }
 
-TEST(RunawayWindowsSocket, connect_no_server)
+TEST_F(RunawayWindowsSocket, connect_no_server)
 {
 	// TODO: This test is slow. Speed it up!
-	Socket uut;
 	ASSERT_THROW(uut.connect("localhost", "12345"), WsaEConnRefused);
 }
 
-TEST(RunawayWindowsSocket, bind)
+TEST_F(RunawayWindowsSocket, bind)
 {
-	Socket uut;
 	uut.bind("12345");
 }
 
-TEST(RunawayWindowsSocket, bind_bad_port)
+TEST_F(RunawayWindowsSocket, bind_bad_port)
 {
-	Socket uut;
 	ASSERT_THROW(uut.bind("bad"), WsaTypeNotFound);
 }
 
-TEST(RunawayWindowsSocket, listen)
+TEST_F(RunawayWindowsSocket, bind_null_port)
 {
-	Socket uut;
+	ASSERT_THROW(uut.bind(nullptr), WsaHostNotFound);
+}
+
+TEST_F(RunawayWindowsSocket, listen)
+{
 	uut.bind("12345");
 	uut.listen(5);
 }
 
-TEST(RunawayWindowsSocket, listen_no_bind)
+TEST_F(RunawayWindowsSocket, listen_no_bind)
 {
-	Socket uut;
 	ASSERT_THROW(uut.listen(5), WsaENotSock);
 }
 
-TEST(RunawayWindowsSocket, accept)
+TEST_F(RunawayWindowsSocket, accept)
 {
-	Socket uut;
 	accept_callback<> cb = SimpleAcceptCallback;
 
 	uut.bind("12345");
@@ -82,9 +81,22 @@ TEST(RunawayWindowsSocket, accept)
 	ASSERT_FALSE(future.get());
 }
 
-TEST(RunawayWindowsSocket, accept_no_listen)
+TEST_F(RunawayWindowsSocket, accept_listen_max_zero)
 {
-	Socket uut;
+	accept_callback<> cb = SimpleAcceptCallback;
+
+	uut.bind("12345");
+	uut.listen(0);
+
+	auto future = uut.accept(cb);
+	auto status = future.wait_for(milliseconds(50));
+	ASSERT_TRUE(future.valid());
+	ASSERT_EQ(future_status::ready, status);
+	ASSERT_FALSE(future.get());
+}
+
+TEST_F(RunawayWindowsSocket, accept_no_listen)
+{
 	accept_callback<> cb = SimpleAcceptCallback;
 
 	uut.bind("12345");
@@ -96,9 +108,8 @@ TEST(RunawayWindowsSocket, accept_no_listen)
 	ASSERT_THROW(future.get(), WsaEInval);
 }
 
-TEST(RunawayWindowsSocket, accept_with_client)
+TEST_F(RunawayWindowsSocket, accept_with_client)
 {
-	Socket uut;
 	Socket client;
 	bool success = false;
 	accept_callback<bool &> cb = BooleanAcceptCallback;
@@ -112,13 +123,11 @@ TEST(RunawayWindowsSocket, accept_with_client)
 	ASSERT_TRUE(future.valid());
 	ASSERT_EQ(future_status::ready, status);
 	ASSERT_TRUE(future.get());
-
 	ASSERT_TRUE(success);
 }
 
-TEST(RunawayWindowsSocket, set_blocking_default_false)
+TEST_F(RunawayWindowsSocket, set_blocking_default_false)
 {
-	Socket uut;
 	accept_callback<> cb = SimpleAcceptCallback;
 
 	uut.bind("12345");
@@ -131,11 +140,9 @@ TEST(RunawayWindowsSocket, set_blocking_default_false)
 	ASSERT_FALSE(future.get());
 }
 
-TEST(RunawayWindowsSocket, set_blocking_true)
+TEST_F(RunawayWindowsSocket, set_blocking_true)
 {
-	Socket uut;
 	Socket client;
-
 	accept_callback<> cb = SimpleAcceptCallback;
 
 	uut.bind("12345");
@@ -154,5 +161,3 @@ TEST(RunawayWindowsSocket, set_blocking_true)
 	ASSERT_EQ(future_status::ready, status);
 	ASSERT_TRUE(future.get());
 }
-
-// TODO: Test listen(0) + accept

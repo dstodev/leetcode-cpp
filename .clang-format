@@ -10,31 +10,40 @@ UseTab: ForIndentation  # Tabs are used to facilitate personal tab width prefere
 Language: Cpp
 Standard: Latest
 
+# Brace wrapping
 BreakBeforeBraces: Custom
 BraceWrapping:
-    AfterClass: true
-    AfterEnum: true
-    AfterExternBlock: false
-    AfterFunction: true
-    AfterNamespace: false
-    AfterStruct: true
-    AfterUnion: true
-    BeforeElse: true
-    SplitEmptyFunction: false
-    SplitEmptyNamespace: false
-    SplitEmptyRecord: false
+  AfterClass: true
+  AfterEnum: true
+  AfterExternBlock: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: true
+  AfterUnion: true
+  BeforeElse: true
+  SplitEmptyFunction: false
+  SplitEmptyNamespace: false
+  SplitEmptyRecord: false
 
 # Align all the things!
-AlignAfterOpenBracket: AlwaysBreak
+AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
-AlignEscapedNewlines: true
-AlignOperands: true
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
 
+# Penalties
+PenaltyBreakAssignment: 500
+
+# Other
+AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortFunctionsOnASingleLine: None
-AlwaysBreakTemplateDeclarations: true
-BinPackArguments: true
-BinPackParameters: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: false
+BinPackParameters: false
 BreakBeforeBinaryOperators: NonAssignment
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -42,6 +51,9 @@ IncludeBlocks: Preserve
 IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Middle
+ReflowComments: true
+SortIncludes: true
+SortUsingDeclarations: true
 SpaceAfterCStyleCast: true
 SpaceBeforeCpp11BracedList: true
 SpacesBeforeTrailingComments: 2

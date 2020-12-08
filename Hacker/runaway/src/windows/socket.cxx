@@ -8,18 +8,8 @@ using std::unique_ptr;
 
 Socket::Socket()
     : _sock(INVALID_SOCKET)
-    , _data()
     , _hints()
 {
-	int status;
-
-	// TODO: Obliterate this because it should probably only happen once; like, in main()
-	// Initialize Winsock
-	status = WSAStartup(MAKEWORD(2, 2), &_data);
-	if (status != 0) {
-		map_to_exception(status);
-	}
-
 	ZeroMemory(&_hints, sizeof(_hints));
 	_hints.ai_family = AF_UNSPEC;
 	_hints.ai_socktype = SOCK_STREAM;
@@ -33,7 +23,6 @@ Socket::~Socket()
 		shutdown(_sock, SD_SEND);
 	}
 	closesocket(_sock);
-	WSACleanup();
 }
 
 void Socket::connect(const char * address, const char * port)
@@ -125,8 +114,16 @@ void Socket::set_blocking(bool mode)
 {
 	DWORD bytes;
 	auto converted_mode = static_cast<unsigned long>(!mode);
-	int status =
-	    WSAIoctl(_sock, FIONBIO, &converted_mode, sizeof(converted_mode), nullptr, 0, &bytes, nullptr, nullptr);
+	int status = WSAIoctl(_sock,
+	                      FIONBIO,
+	                      &converted_mode,
+	                      sizeof(converted_mode),
+	                      nullptr,
+	                      0,
+	                      &bytes,
+	                      nullptr,
+	                      nullptr);
+
 	if (status == SOCKET_ERROR) {
 		status = WSAGetLastError();
 		map_to_exception(status);

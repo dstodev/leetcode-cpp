@@ -20,14 +20,46 @@ public:
 	Socket();
 	~Socket();
 
-	// Client functions
+	/* ~~~~~~~~~~~~~~~~~~~~~~~
+	     Client functions
+	~~~~~~~~~~~~~~~~~~~~~~~ */
+
+	/** @brief Connect to server at @p address:port.
+	 *
+	 * @param[in] address Address to connect to in either IPv4 or IPv6 string format.
+	 * @param[in] port Port to connect through.
+	 */
 	void connect(const char * address, const char * port);
 
-	// Server functions
+	/* ~~~~~~~~~~~~~~~~~~~~~~~
+	     Server functions
+	~~~~~~~~~~~~~~~~~~~~~~~ */
+
+	/** @brief Bind the socket to a port.
+	 *
+	 * @param[in] port The port to bind to.
+	 */
 	void bind(const char * port);
+
+	/** @brief Listen for clients.
+	 *
+	 * @param[in] max_queue Maximum queue size for connecting clients.
+	 */
 	void listen(size_t max_queue);
+
+	/** @brief Set the socket to blocking or non-blocking mode.
+	 *
+	 * @param[in] mode @c true for blocking mode,
+	 *                 @c false for non-blocking mode.
+	 */
 	void set_blocking(bool mode);
 
+	/** @brief Spawn a thread to accept() the next queued client connecting to the socket when in server mode.
+	 *
+	 * @param[in] callback Callback invoked with the accepted client socket (fd) and @a args.
+	 * @param[in] args Arguments passed to @a callback.
+	 * @return @c future for the spawned thread.
+	 */
 	template <typename... Args>
 	std::future<bool> accept(const accept_callback<Args...> & callback, Args &&... args);
 
@@ -35,6 +67,14 @@ private:
 	SOCKET _sock;
 	struct addrinfo _hints;
 
+	/** @brief Wrapper function for calling accept().
+	 *
+	 * @tparam Args Parameter pack for arguments passed to @a callback.
+	 * @param sock Socket (fd) to accept on.
+	 * @param callback Callback to invoke for accepted client.
+	 * @param args Arguments passed to @a callback.
+	 * @return @c true if @a callback was invoked, @c false otherwise.
+	 */
 	template <typename... Args>
 	static bool accept_thread(SOCKET sock, const accept_callback<Args...> & callback, Args &&... args);
 };

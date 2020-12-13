@@ -8,11 +8,16 @@
 class WsaWrapper
 {
 public:
-	WsaWrapper();
-	~WsaWrapper();
+	static WsaWrapper & get_instance();
+
+	WsaWrapper(const WsaWrapper & copy) = delete;
+	WsaWrapper & operator=(const WsaWrapper & copy) = delete;
 
 private:
 	WSADATA _data;
+
+	WsaWrapper();
+	~WsaWrapper();
 };
 
 

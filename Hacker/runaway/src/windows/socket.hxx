@@ -9,6 +9,7 @@
 #include <ws2tcpip.h>
 
 #include "exceptions.hxx"
+#include "wsawrapper.hxx"
 
 template <typename... Args>
 using accept_callback = std::function<
@@ -64,6 +65,8 @@ public:
 	std::future<bool> accept(const accept_callback<Args...> & callback, Args &&... args);
 
 private:
+	const WsaWrapper& _wsa;
+
 	SOCKET _sock;
 	struct addrinfo _hints;
 

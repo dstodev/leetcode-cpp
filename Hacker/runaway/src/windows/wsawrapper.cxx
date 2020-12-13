@@ -4,6 +4,13 @@
 #include <winsock2.h>
 
 
+WsaWrapper & WsaWrapper::get_instance()
+{
+	static WsaWrapper instance;
+	return instance;
+}
+
+
 WsaWrapper::WsaWrapper()
     : _data()
 {

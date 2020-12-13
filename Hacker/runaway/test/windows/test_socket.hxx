@@ -10,7 +10,6 @@ class RunawayWindowsSocket : public ::testing::Test
 {
 protected:
 	Socket uut;
-	WsaWrapper wsa;  // Constructing this will initialize WSA, and destructing it will clean up
 };
 
 

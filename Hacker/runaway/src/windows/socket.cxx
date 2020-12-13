@@ -9,6 +9,7 @@ using std::unique_ptr;
 Socket::Socket()
     : _sock(INVALID_SOCKET)
     , _hints()
+    , _wsa(WsaWrapper::get_instance())
 {
 	ZeroMemory(&_hints, sizeof(_hints));
 	_hints.ai_family = AF_UNSPEC;

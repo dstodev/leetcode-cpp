@@ -10,7 +10,6 @@ WsaWrapper & WsaWrapper::get_instance()
 	return instance;
 }
 
-
 WsaWrapper::WsaWrapper()
     : _data()
 {

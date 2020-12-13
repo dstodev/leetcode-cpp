@@ -15,6 +15,7 @@ template <typename... Args>
 using accept_callback = std::function<
     void(SOCKET client, std::unique_ptr<sockaddr_in6> addr, std::unique_ptr<int> addr_len, Args... args)>;
 
+
 class Socket
 {
 public:
@@ -65,7 +66,7 @@ public:
 	std::future<bool> accept(const accept_callback<Args...> & callback, Args &&... args);
 
 private:
-	const WsaWrapper& _wsa;
+	const WsaWrapper & _wsa;
 
 	SOCKET _sock;
 	struct addrinfo _hints;
@@ -116,5 +117,6 @@ bool Socket::accept_thread(SOCKET sock, const accept_callback<Args...> & callbac
 
 	return fired;
 }
+
 
 #endif  // CPPKATA_SOCKET_HXX

@@ -26,6 +26,11 @@ Socket::~Socket()
 	closesocket(_sock);
 }
 
+Socket::operator SOCKET() const
+{
+	return _sock;
+}
+
 void Socket::connect(const char * address, const char * port)
 {
 	int status;

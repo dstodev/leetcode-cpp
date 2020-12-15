@@ -8,7 +8,7 @@ using std::string;
 	TEST(RunawayWindowsExceptions, Type)                   \
 	{                                                      \
 		Type uut;                                          \
-		ASSERT_STREQ(message, uut.what());                 \
+		ASSERT_STREQ(#Type ": " message, uut.what());      \
 		ASSERT_THROW(map_to_exception(enumeration), Type); \
 	}                                                      \
 	static_assert(true, "force semicolon after macro")

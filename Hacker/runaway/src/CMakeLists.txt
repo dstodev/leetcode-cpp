@@ -8,12 +8,12 @@ add_library(${target_name}
 
 target_include_directories(${target_name}
 	PUBLIC
-	${CMAKE_CURRENT_LIST_DIR}
+		${CMAKE_CURRENT_LIST_DIR}
 )
 
 target_compile_features(${target_name}
 	PRIVATE
-	cxx_std_17
+		cxx_std_17
 )
 
 if (WIN32)

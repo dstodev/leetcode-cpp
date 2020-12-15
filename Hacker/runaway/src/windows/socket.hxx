@@ -7,6 +7,7 @@
 #include <vector>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <string>
 
 #include "exceptions.hxx"
 #include "wsawrapper.hxx"
@@ -21,6 +22,10 @@ class Socket
 public:
 	Socket();
 	~Socket();
+
+	operator SOCKET() const;
+
+	std::string receive() const;
 
 	/* ~~~~~~~~~~~~~~~~~~~~~~~
 	     Client functions

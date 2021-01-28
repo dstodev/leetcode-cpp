@@ -5,9 +5,14 @@
 #include <ws2tcpip.h>
 
 
+/** Singleton wrapper around WSA. Construction of the object initializes WSA, and destruction cleans it up.
+ */
 class WsaWrapper
 {
 public:
+	/** @brief Get a reference to the WsaWrapper singleton.
+	 * @return WsaWrapper singleton reference.
+	 */
 	static WsaWrapper & get_instance();
 
 	WsaWrapper(const WsaWrapper & copy) = delete;

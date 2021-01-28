@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 struct Parent
 {
 	virtual ~Parent() = default;
@@ -8,6 +9,7 @@ struct Parent
 		std::cout << "Parent: One" << std::endl;
 	}
 };
+
 
 struct Child : Parent
 {
@@ -20,6 +22,7 @@ struct Child : Parent
 		std::cout << "Child: Two" << std::endl;
 	}
 };
+
 
 int main()
 {

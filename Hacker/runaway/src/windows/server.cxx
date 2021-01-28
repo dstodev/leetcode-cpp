@@ -1,12 +1,13 @@
-#include "socket.hxx"
+#include "server.hxx"
 #include <memory>
 
 using std::move;
 using std::ref;
+using std::string;
 using std::thread;
 using std::unique_ptr;
 
-Socket::Socket()
+Server::Server()
     : _sock(INVALID_SOCKET)
     , _hints()
     , _wsa(WsaWrapper::get_instance())
@@ -17,59 +18,20 @@ Socket::Socket()
 	_hints.ai_protocol = IPPROTO_TCP;
 }
 
-Socket::~Socket()
+Server::~Server()
 {
-	if ((_hints.ai_flags & AI_PASSIVE) == 0) {
-		// Client cleanup
-		shutdown(_sock, SD_SEND);
-	}
 	closesocket(_sock);
 }
 
-Socket::operator SOCKET() const
+string Server::receive(SOCKET client) const
 {
-	return _sock;
+	return string();
 }
 
-void Socket::connect(const char * address, const char * port)
-{
-	int status;
+void Server::send(SOCKET client, string message) const
+{}
 
-	// Reset AI_PASSIVE
-	_hints.ai_flags &= ~AI_PASSIVE;
-
-	// Resolve address & port
-	struct addrinfo * result;
-	status = getaddrinfo(address, port, &_hints, &result);
-	if (status != 0) {
-		map_to_exception(status);
-	}
-
-	// Connect to each resolved address until successful
-	auto sock = INVALID_SOCKET;
-	for (struct addrinfo * iter = result; iter != nullptr && sock == INVALID_SOCKET; iter = iter->ai_next) {
-		sock = socket(iter->ai_family, iter->ai_socktype, iter->ai_protocol);
-
-		if (sock == INVALID_SOCKET) {
-			status = WSAGetLastError();
-			map_to_exception(status);
-		}
-
-		if (::connect(sock, iter->ai_addr, (int) iter->ai_addrlen) == SOCKET_ERROR) {
-			status = WSAGetLastError();
-			sock = INVALID_SOCKET;
-		}
-	}
-	freeaddrinfo(result);
-
-	if (sock == INVALID_SOCKET) {
-		map_to_exception(status);
-	}
-
-	_sock = sock;
-}
-
-void Socket::bind(const char * port)
+void Server::bind(const char * port)
 {
 	int status;
 
@@ -105,7 +67,7 @@ void Socket::bind(const char * port)
 	set_blocking(false);
 }
 
-void Socket::listen(size_t max_queue)
+void Server::listen(size_t max_queue)
 {
 	int status;
 
@@ -116,7 +78,7 @@ void Socket::listen(size_t max_queue)
 	}
 }
 
-void Socket::set_blocking(bool mode)
+void Server::set_blocking(bool mode)
 {
 	DWORD bytes;
 	auto converted_mode = static_cast<unsigned long>(!mode);

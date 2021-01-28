@@ -6,7 +6,8 @@ add_executable(${target_name}
 	test_request
 
 	windows/test_exceptions
-	windows/test_socket
+	windows/test_server
+	windows/test_client
 )
 
 target_link_libraries(${target_name}

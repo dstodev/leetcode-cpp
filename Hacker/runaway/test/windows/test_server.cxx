@@ -1,10 +1,11 @@
-#include "test_socket.hxx"
+#include "test_server.hxx"
 #include <chrono>
+#include <client.hxx>
 #include <exceptions.hxx>
 #include <future>
 #include <gtest/gtest.h>
 #include <memory>
-#include <socket.hxx>
+#include <server.hxx>
 
 using std::future;
 using std::future_error;
@@ -28,17 +29,6 @@ void BooleanAcceptCallback(SOCKET client, unique_ptr<sockaddr_in6> addr, unique_
 
 	closesocket(client);
 	in = true;
-}
-
-TEST_F(RunawayWindowsSocket, constructor)
-{
-	(void) uut;
-}
-
-TEST_F(RunawayWindowsSocket, connect_no_server)
-{
-	// TODO: This test is slow. Speed it up!
-	ASSERT_THROW(uut.connect("localhost", "12345"), WsaEConnRefused);
 }
 
 TEST_F(RunawayWindowsSocket, bind)
@@ -110,7 +100,7 @@ TEST_F(RunawayWindowsSocket, accept_no_listen)
 
 TEST_F(RunawayWindowsSocket, accept_with_client)
 {
-	Socket client;
+	Client client;
 	bool success = false;
 	accept_callback<bool &> cb = BooleanAcceptCallback;
 
@@ -142,7 +132,7 @@ TEST_F(RunawayWindowsSocket, set_blocking_default_false)
 
 TEST_F(RunawayWindowsSocket, set_blocking_true)
 {
-	Socket client;
+	Client client;
 	accept_callback<> cb = SimpleAcceptCallback;
 
 	uut.bind("12345");

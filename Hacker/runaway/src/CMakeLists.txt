@@ -1,6 +1,8 @@
 set(target_name runaway)
 
 add_library(${target_name}
+	isockserver
+	isockclient
 	gameboard
 	request
 	response
@@ -27,7 +29,8 @@ if (WIN32)
 	)
 	target_sources(${target_name}
 		PRIVATE
-			windows/socket
+			windows/server
+			windows/client
 			windows/exceptions
 			windows/wsawrapper
 	)

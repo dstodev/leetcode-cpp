@@ -1,6 +1,8 @@
 #include "server.hxx"
 #include <memory>
 
+using std::future;
+using std::make_unique;
 using std::move;
 using std::ref;
 using std::string;
@@ -96,4 +98,35 @@ void Server::set_blocking(bool mode)
 		status = WSAGetLastError();
 		map_to_exception(status);
 	}
+}
+
+future<bool> Server::accept(const windows_callback & callback)
+{
+	future<bool> future;
+	future = async(accept_thread, _sock, callback);
+	return future;
+}
+
+bool Server::accept_thread(SOCKET sock, const windows_callback & callback)
+{
+	int status;
+	auto addr = make_unique<sockaddr_in6>();
+	int addr_len = sizeof(*addr);
+	bool fired = false;
+
+	SOCKET client_sock = ::accept(sock, (sockaddr *) addr.get(), &addr_len);
+	if (client_sock == INVALID_SOCKET) {
+		status = WSAGetLastError();
+
+		// EWOULDBLOCK is not an error, so ignore it if returned.
+		if (status != WSAEWOULDBLOCK) {
+			map_to_exception(status);
+		}
+	}
+	else {
+		callback(client_sock, move(addr), addr_len);
+		fired = true;
+	}
+
+	return fired;
 }

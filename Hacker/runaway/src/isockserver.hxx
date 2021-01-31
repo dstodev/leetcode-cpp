@@ -4,8 +4,13 @@
 #include <future>
 #include <string>
 
+#include <functional>
 
-template <typename sock_t>
+template <typename sock_t, typename sockaddr_t>
+using accept_callback = std::function<void(sock_t client, std::unique_ptr<sockaddr_t> addr, size_t addr_len)>;
+
+
+template <typename sock_t, typename sockaddr_t>
 class ISockServer
 {
 public:
@@ -41,6 +46,12 @@ public:
 	 */
 	virtual void listen(size_t max_queue) = 0;
 
+	/** @brief Spawn a thread to accept() the next queued client connecting to the socket.
+	 * @param[in] callback Callback invoked with the accepted client socket (fd) and @a args.
+	 * @return @c future for the spawned thread.
+	 */
+	virtual std::future<bool> accept(const accept_callback<sock_t, sockaddr_t> & callback) = 0;
+
 	/** @brief Set the socket to blocking or non-blocking mode.
 	 * @param[in] mode @c true for blocking mode,
 	 *                 @c false for non-blocking mode.
@@ -49,8 +60,8 @@ public:
 };
 
 
-template <typename T>
-inline ISockServer<T>::~ISockServer() = default;
+template <typename sock_t, typename sockaddr_t>
+inline ISockServer<sock_t, sockaddr_t>::~ISockServer() = default;
 
 
 #endif  // CPPKATA_ISOCKSERVER_HXX

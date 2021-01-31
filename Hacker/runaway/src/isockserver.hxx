@@ -47,7 +47,9 @@ public:
 	virtual void listen(size_t max_queue) = 0;
 
 	/** @brief Spawn a thread to accept() the next queued client connecting to the socket.
+	 *
 	 * @param[in] callback Callback invoked with the accepted client socket (fd) and @a args.
+	 *                     May be a functor passed in a call to std::ref() in order to transfer state information.
 	 * @return @c future for the spawned thread.
 	 */
 	virtual std::future<bool> accept(const accept_callback<sock_t, sockaddr_t> & callback) = 0;

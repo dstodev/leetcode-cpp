@@ -10,5 +10,4 @@ public:
 	Request() = default;
 };
 
-
 #endif  // CPPKATA_REQUEST_HXX

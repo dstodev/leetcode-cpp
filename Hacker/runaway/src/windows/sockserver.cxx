@@ -1,4 +1,4 @@
-#include "server.hxx"
+#include "sockserver.hxx"
 #include <memory>
 
 using std::future;
@@ -9,10 +9,8 @@ using std::string;
 using std::thread;
 using std::unique_ptr;
 
-Server::Server()
-    : _sock(INVALID_SOCKET)
-    , _hints()
-    , _wsa(WsaWrapper::get_instance())
+SockServer::SockServer()
+    : _hints()
 {
 	ZeroMemory(&_hints, sizeof(_hints));
 	_hints.ai_family = AF_UNSPEC;
@@ -20,20 +18,12 @@ Server::Server()
 	_hints.ai_protocol = IPPROTO_TCP;
 }
 
-Server::~Server()
+SockServer::~SockServer()
 {
 	closesocket(_sock);
 }
 
-string Server::receive(SOCKET client) const
-{
-	return string();
-}
-
-void Server::send(SOCKET client, string message) const
-{}
-
-void Server::bind(const char * port)
+void SockServer::bind(const char * port)
 {
 	int status;
 
@@ -66,10 +56,10 @@ void Server::bind(const char * port)
 	_sock = sock;
 
 	// Set non-blocking mode on the socket
-	set_blocking(false);
+	_sock.set_blocking(false);
 }
 
-void Server::listen(size_t max_queue)
+void SockServer::listen(size_t max_queue)
 {
 	int status;
 
@@ -80,34 +70,14 @@ void Server::listen(size_t max_queue)
 	}
 }
 
-void Server::set_blocking(bool mode)
-{
-	DWORD bytes;
-	auto converted_mode = static_cast<unsigned long>(!mode);
-	int status = WSAIoctl(_sock,
-	                      FIONBIO,
-	                      &converted_mode,
-	                      sizeof(converted_mode),
-	                      nullptr,
-	                      0,
-	                      &bytes,
-	                      nullptr,
-	                      nullptr);
-
-	if (status == SOCKET_ERROR) {
-		status = WSAGetLastError();
-		map_to_exception(status);
-	}
-}
-
-future<bool> Server::accept(const windows_callback & callback)
+future<bool> SockServer::accept(const windows_callback & callback)
 {
 	future<bool> future;
 	future = async(accept_thread, _sock, callback);
 	return future;
 }
 
-bool Server::accept_thread(SOCKET sock, const windows_callback & callback)
+bool SockServer::accept_thread(SOCKET sock, const windows_callback & callback)
 {
 	int status;
 	auto addr = make_unique<sockaddr_in6>();
@@ -130,3 +100,11 @@ bool Server::accept_thread(SOCKET sock, const windows_callback & callback)
 
 	return fired;
 }
+
+string SockServer::receive(SOCKET client) const
+{
+	return string();
+}
+
+void SockServer::send(SOCKET client, string message) const
+{}

@@ -1,5 +1,5 @@
-#include "public.hpp"
-#include "private.hpp"
+#include "public.hxx"
+#include "private.hxx"
 
 
 ImplPublic::ImplPublic()

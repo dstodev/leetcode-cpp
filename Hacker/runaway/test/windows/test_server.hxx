@@ -2,13 +2,13 @@
 #define CPPKATA_TEST_SERVER_HXX
 
 #include <gtest/gtest.h>
-#include <windows/server.hxx>
+#include <windows/sockserver.hxx>
 
 
-class RunawayWindowsSocket : public ::testing::Test
+class RunawayWindowsServer : public ::testing::Test
 {
 protected:
-	Server uut;
+	SockServer uut;
 };
 
 

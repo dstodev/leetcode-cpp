@@ -2,13 +2,13 @@
 #define CPPKATA_RUNAWAYWINDOWSCLIENT_HXX
 
 #include <gtest/gtest.h>
-#include <windows/client.hxx>
+#include <windows/sockclient.hxx>
 
 
 class RunawayWindowsClient : public ::testing::Test
 {
 protected:
-	Client uut;
+	SockClient uut;
 };
 
 

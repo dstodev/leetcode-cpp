@@ -1,11 +1,15 @@
 set(target_name runaway)
 
 add_library(${target_name}
-	isockserver
-	isockclient
-	gameboard
-	request
-	response
+	isocket.hxx
+	isockserver.hxx
+	isockclient.hxx
+	gameboard.hxx
+	gameboard.cxx
+	request.hxx
+	request.cxx
+	response.hxx
+	response.cxx
 )
 
 target_include_directories(${target_name}
@@ -29,9 +33,15 @@ if (WIN32)
 	)
 	target_sources(${target_name}
 		PRIVATE
-			windows/server
-			windows/client
-			windows/exceptions
-			windows/wsawrapper
+			windows/socket.hxx
+			windows/socket.cxx
+			windows/sockserver.hxx
+			windows/sockserver.cxx
+			windows/sockclient.hxx
+			windows/sockclient.cxx
+			windows/exceptions.hxx
+			windows/exceptions.cxx
+			windows/wsawrapper.hxx
+			windows/wsawrapper.cxx
 	)
 endif ()

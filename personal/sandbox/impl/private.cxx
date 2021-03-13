@@ -1,4 +1,4 @@
-#include "private.hpp"
+#include "private.hxx"
 
 #include <iostream>
 using std::cout;

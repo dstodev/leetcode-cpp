@@ -25,5 +25,4 @@ private:
 	~WsaWrapper();
 };
 
-
 #endif  // CPPKATA_WSAWRAPPER_HXX

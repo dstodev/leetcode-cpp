@@ -1,8 +1,10 @@
 project(Sandbox)
 
 add_subdirectory(downcast)
+add_subdirectory(getopt)
 add_subdirectory(impl)
 add_subdirectory(interface_destructor)
+add_subdirectory(style)
 
 if (FUTURE)
 	# These things cannot compile because the required features do not exist yet.

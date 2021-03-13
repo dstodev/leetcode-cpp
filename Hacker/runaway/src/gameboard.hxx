@@ -5,5 +5,4 @@
 class GameBoard
 {};
 
-
 #endif  // CPPKATA_GAMEBOARD_HXX

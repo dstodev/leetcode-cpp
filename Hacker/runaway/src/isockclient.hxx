@@ -1,20 +1,41 @@
 #ifndef CPPKATA_ISOCKCLIENT_HXX
 #define CPPKATA_ISOCKCLIENT_HXX
 
+#include <string>
+
+#include "isocket.hxx"
+
 
 class ISockClient
 {
 public:
-	// Pure virtual forces child classes to implement the destructor, and forces this class to be abstract.
-	// Pure virtual does NOT mean "no implementation in this class". It ONLY means "derived classes must implement
-	// this."
 	virtual ~ISockClient() = 0;
+
+	/* ~~~~~~~~~~~~~~~~~~~~~~~
+	     SockClient functions
+	~~~~~~~~~~~~~~~~~~~~~~~ */
+
+	/** @brief Connect to server at @p address:port.
+	 * @param[in] address Address to connect to in either IPv4 or IPv6 string format.
+	 * @param[in] port    Port to connect through.
+	 */
+	virtual void connect(const char * address, const char * port) = 0;
+
+	/* ~~~~~~~~~~~~~~~~~~~~~~
+	     RX/TX functions
+	~~~~~~~~~~~~~~~~~~~~~~ */
+
+	/** @brief Receive data from server.
+	 * @return Data received from server.
+	 */
+	virtual std::string receive() = 0;
+
+	/** @brief Send @p message to server.
+	 * @param[in] message Message to send to server.
+	 */
+	virtual void send(std::string message) = 0;
 };
 
-
-// Must be inlined to avoid multiple definitions; if this header is included in multiple translation units,
-// multiple definitions would otherwise occur.
 inline ISockClient::~ISockClient() = default;
-
 
 #endif  // CPPKATA_ISOCKCLIENT_HXX

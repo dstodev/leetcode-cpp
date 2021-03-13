@@ -4,31 +4,33 @@
 
 
 Socket::Socket()
-    : _sock(INVALID_SOCKET)
-    , _wsa(WsaWrapper::get_instance())
+    : _wsa(WsaWrapper::get_instance())
+    , _sock(INVALID_SOCKET)
+    , _blocking(true)  // Default state when connected is 'true'
 {}
 
-Socket & Socket::operator=(const SOCKET & fd) {
-	sock_fd(fd);
+Socket & Socket::operator=(const SOCKET & fd)
+{
+	this->fd(fd);
 	return *this;
 }
 
 Socket::operator SOCKET() const
 {
-	return sock_fd();
+	return fd();
 }
 
-void Socket::sock_fd(SOCKET fd)
+void Socket::fd(SOCKET fd)
 {
 	_sock = fd;
 }
 
-SOCKET Socket::sock_fd() const
+SOCKET Socket::fd() const
 {
 	return _sock;
 }
 
-void Socket::set_blocking(bool mode)
+void Socket::blocking(bool mode)
 {
 	DWORD bytes;
 	auto converted_mode = static_cast<unsigned long>(!mode);
@@ -46,4 +48,11 @@ void Socket::set_blocking(bool mode)
 		status = WSAGetLastError();
 		map_to_exception(status);
 	}
+
+	_blocking = mode;
+}
+
+bool Socket::blocking() const
+{
+	return _blocking;
 }

@@ -18,7 +18,7 @@ public:
 	virtual ~ISockServer() = 0;
 
 	/* ~~~~~~~~~~~~~~~~~~~~~~~
-	     SockServer functions
+	     Server functions
 	~~~~~~~~~~~~~~~~~~~~~~~ */
 
 	/** @brief Bind the socket to a port.
@@ -35,7 +35,7 @@ public:
 
 	/** @brief Spawn a thread to accept() the next queued client connecting to the socket.
 	 *
-	 * @param[in] callback Callback invoked with the accepted client socket (sock_fd) and @a args.
+	 * @param[in] callback Callback invoked with the accepted client socket (fd) and @a args.
 	 *                     May be a functor passed in a call to std::ref() in order to transfer state information.
 	 * @return @c future for the spawned thread.
 	 */
@@ -46,14 +46,14 @@ public:
 	~~~~~~~~~~~~~~~~~~~~~~ */
 
 	/** @brief Receive data from @p client.
-	 * @param[in] client SockClient socket (sock_fd) to receive data from.
-	 * @return Data received from @p client socket (sock_fd).
+	 * @param[in] client Client socket (fd) to receive data from.
+	 * @return Data received from @p client socket (fd).
 	 */
 	virtual std::string receive(sock_t client) const = 0;
 
 	/** @brief Send @p message to @p client.
-	 * @param[in] client  SockClient socket (sock_fd) to send @p message to.
-	 * @param[in] message Message to send to @p client socket (sock_fd).
+	 * @param[in] client  Client socket (fd) to send @p message to.
+	 * @param[in] message Message to send to @p client socket (fd).
 	 */
 	virtual void send(sock_t client, std::string message) const = 0;
 };

@@ -12,7 +12,7 @@ public:
 	virtual ~ISockClient() = 0;
 
 	/* ~~~~~~~~~~~~~~~~~~~~~~~
-	     SockClient functions
+	     Client functions
 	~~~~~~~~~~~~~~~~~~~~~~~ */
 
 	/** @brief Connect to server at @p address:port.

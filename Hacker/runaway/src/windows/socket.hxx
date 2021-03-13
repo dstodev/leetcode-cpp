@@ -15,16 +15,20 @@ public:
 	virtual ~Socket() override = default;
 
 	Socket & operator=(const SOCKET & fd) override;
-	operator SOCKET() const;
+	operator SOCKET() const override;
 
-	void sock_fd(SOCKET fd) override;
-	SOCKET sock_fd() const override;
+	void fd(SOCKET fd) override;
+	SOCKET fd() const override;
 
-	void set_blocking(bool mode) override;
+	void blocking(bool mode) override;
+	bool blocking() const override;
 
 private:
 	const WsaWrapper & _wsa;
 	SOCKET _sock;
+	bool _blocking;
+
+//	int ioctl(DWORD control_code, )
 };
 
 #endif  // CPPKATA_SOCKET_HXX

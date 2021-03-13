@@ -32,7 +32,7 @@ private:
 	struct addrinfo _hints;
 
 	/** @brief Wrapper function for calling accept() asynchronously.
-	 * @param[in] sock     SockServer (sock_fd) to accept on.
+	 * @param[in] sock     Socket (fd) to accept on.
 	 * @param[in] callback Callback to invoke for accepted client.
 	 * @return @c true if @a callback was invoked, @c false otherwise.
 	 */

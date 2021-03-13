@@ -33,7 +33,7 @@ public:
 			const bool will_overflow = answer > ((std::numeric_limits<int>::max() - overflow_digit) / 10);
 			const bool will_underflow = answer < ((std::numeric_limits<int>::min() - underflow_digit) / 10);
 
-			// TODO: How can this logic be tested? I'd like to test:
+			// How can this logic be tested? I'd like to test:
 			// 1. An integer which will not overflow after `answer * 10`, but will overflow with `+ digit`.
 			// This doesn't seem possible, because int::max is 2147483647. I'd want to use 8463847412,
 			// because backwards it is int::max + 1, but that number is far greater than int::max, so it

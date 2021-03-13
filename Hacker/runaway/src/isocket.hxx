@@ -14,14 +14,15 @@ public:
 	virtual ISocket<fd_t> & operator=(const fd_t & fd) = 0;
 	virtual operator fd_t() const = 0;
 
-	virtual void sock_fd(fd_t fd) = 0;
-	virtual fd_t sock_fd() const = 0;
+	virtual void fd(fd_t fd) = 0;
+	virtual fd_t fd() const = 0;
 
 	/** @brief Set the socket to blocking or non-blocking mode.
 	 * @param[in] mode @c true for blocking mode,
 	 *                 @c false for non-blocking mode.
 	 */
-	virtual void set_blocking(bool mode) = 0;
+	virtual void blocking(bool mode) = 0;
+	virtual bool blocking() const = 0;
 };
 
 // Must be inlined to avoid multiple definitions; if this header is included in multiple translation units,

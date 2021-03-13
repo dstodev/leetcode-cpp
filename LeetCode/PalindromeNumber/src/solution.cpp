@@ -1,6 +1,6 @@
 #include "solution.hpp"
 
-// TODO: Switch to only include & use <deque>?
+// Switch to only include & use <deque>?
 
 #include <stack>
 using std::stack;

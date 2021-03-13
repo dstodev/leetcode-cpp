@@ -134,7 +134,7 @@ TEST_F(RunawayWindowsServer, set_blocking_default_false)
 //	uut.bind("12345");
 //	uut.listen(5);
 //
-//	uut.set_blocking(true);
+//	uut.blocking(true);
 //
 //	auto future = uut.accept(ref(cb));
 //	auto status = future.wait_for(milliseconds(0));

@@ -56,7 +56,7 @@ void SockServer::bind(const char * port)
 	_sock = sock;
 
 	// Set non-blocking mode on the socket
-	_sock.set_blocking(false);
+	_sock.blocking(false);
 }
 
 void SockServer::listen(size_t max_queue)

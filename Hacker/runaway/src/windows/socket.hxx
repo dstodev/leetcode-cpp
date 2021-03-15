@@ -12,7 +12,7 @@ class Socket : public ISocket<SOCKET>
 {
 public:
 	Socket();
-	virtual ~Socket() override = default;
+	virtual ~Socket() override;
 
 	Socket & operator=(const SOCKET & fd) override;
 	operator SOCKET() const override;

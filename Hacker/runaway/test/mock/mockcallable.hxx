@@ -3,9 +3,10 @@
 
 #include <cstdint>
 #include <memory>
+#include <socket.hxx>
 
 
-template <typename sock_t, typename sockaddr_t>
+template <typename sockaddr_t>
 class MockCallable
 {
 public:
@@ -14,7 +15,7 @@ public:
 	MockCallable(const MockCallable & copy) = delete;
 	MockCallable & operator=(const MockCallable & copy) = delete;
 
-	void operator()(sock_t client, std::unique_ptr<sockaddr_t> addr, std::size_t addr_len);
+	void operator()(Socket client, std::unique_ptr<sockaddr_t> addr, std::size_t addr_len);
 
 	bool was_fired() const;
 
@@ -23,13 +24,13 @@ private:
 };
 
 
-template <typename sock_t, typename sockaddr_t>
-MockCallable<sock_t, sockaddr_t>::MockCallable()
+template <typename sockaddr_t>
+MockCallable<sockaddr_t>::MockCallable()
     : _fired(false)
 {}
 
-template <typename sock_t, typename sockaddr_t>
-void MockCallable<sock_t, sockaddr_t>::operator()(sock_t client, std::unique_ptr<sockaddr_t> addr, size_t addr_len)
+template <typename sockaddr_t>
+void MockCallable<sockaddr_t>::operator()(Socket client, std::unique_ptr<sockaddr_t> addr, size_t addr_len)
 {
 	(void) client;
 	(void) addr;
@@ -38,8 +39,8 @@ void MockCallable<sock_t, sockaddr_t>::operator()(sock_t client, std::unique_ptr
 	_fired = true;
 }
 
-template <typename sock_t, typename sockaddr_t>
-bool MockCallable<sock_t, sockaddr_t>::was_fired() const
+template <typename sockaddr_t>
+bool MockCallable<sockaddr_t>::was_fired() const
 {
 	return _fired;
 }

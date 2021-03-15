@@ -15,7 +15,7 @@ using std::ref;
 using std::unique_ptr;
 using std::chrono::milliseconds;
 
-using WindowsCallable = ::MockCallable<SOCKET, sockaddr_in6>;
+using WindowsCallable = ::MockCallable<sockaddr_in6>;
 
 
 TEST_F(RunawayWindowsServer, bind)

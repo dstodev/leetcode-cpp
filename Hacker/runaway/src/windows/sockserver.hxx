@@ -11,10 +11,10 @@
 #include <string>
 #include <vector>
 
-using windows_callback = ::accept_callback<SOCKET, sockaddr_in6>;
+using windows_callback = ::accept_callback<Socket, sockaddr_in6>;
 
 
-class SockServer : public ISockServer<SOCKET, sockaddr_in6>
+class SockServer : public ISockServer<Socket, sockaddr_in6>
 {
 public:
 	SockServer();
@@ -24,8 +24,8 @@ public:
 	void listen(size_t max_queue) override;
 	std::future<bool> accept(const windows_callback & callback) override;
 
-	std::string receive(SOCKET client) const override;
-	void send(SOCKET client, std::string message) const override;
+	[[nodiscard]] std::string receive(const Socket & client) const override;
+	void send(const Socket & client, std::string message) const override;
 
 private:
 	Socket _sock;
@@ -36,7 +36,7 @@ private:
 	 * @param[in] callback Callback to invoke for accepted client.
 	 * @return @c true if @a callback was invoked, @c false otherwise.
 	 */
-	static bool accept_thread(SOCKET sock, const windows_callback & callback);
+	static bool accept_thread(const Socket& sock, const windows_callback & callback);
 };
 
 #endif  // CPPKATA_SOCKSERVER_HXX

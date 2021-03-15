@@ -5,10 +5,8 @@
 #include <future>
 #include <string>
 
-#include "isocket.hxx"
-
-template <typename sockfd_t, typename sockaddr_t>
-using accept_callback = std::function<void(sockfd_t client, std::unique_ptr<sockaddr_t> addr, size_t addr_len)>;
+template <typename sock_t, typename sockaddr_t>
+using accept_callback = std::function<void(sock_t client, std::unique_ptr<sockaddr_t> addr, size_t addr_len)>;
 
 
 template <typename sock_t, typename sockaddr_t>
@@ -49,13 +47,13 @@ public:
 	 * @param[in] client Client socket (fd) to receive data from.
 	 * @return Data received from @p client socket (fd).
 	 */
-	virtual std::string receive(sock_t client) const = 0;
+	virtual std::string receive(const sock_t & client) const = 0;
 
 	/** @brief Send @p message to @p client.
 	 * @param[in] client  Client socket (fd) to send @p message to.
 	 * @param[in] message Message to send to @p client socket (fd).
 	 */
-	virtual void send(sock_t client, std::string message) const = 0;
+	virtual void send(const sock_t & client, std::string message) const = 0;
 };
 
 template <typename sock_t, typename sockaddr_t>

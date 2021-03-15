@@ -77,14 +77,15 @@ future<bool> SockServer::accept(const windows_callback & callback)
 	return future;
 }
 
-bool SockServer::accept_thread(SOCKET sock, const windows_callback & callback)
+bool SockServer::accept_thread(const Socket & sock, const windows_callback & callback)
 {
 	int status;
 	auto addr = make_unique<sockaddr_in6>();
 	int addr_len = sizeof(*addr);
 	bool fired = false;
 
-	SOCKET client_sock = ::accept(sock, (sockaddr *) addr.get(), &addr_len);
+	Socket client_sock;
+	client_sock = ::accept(sock, (sockaddr *) addr.get(), &addr_len);
 	if (client_sock == INVALID_SOCKET) {
 		status = WSAGetLastError();
 
@@ -101,10 +102,10 @@ bool SockServer::accept_thread(SOCKET sock, const windows_callback & callback)
 	return fired;
 }
 
-string SockServer::receive(SOCKET client) const
+string SockServer::receive(const Socket & client) const
 {
 	return string();
 }
 
-void SockServer::send(SOCKET client, string message) const
+void SockServer::send(const Socket & client, string message) const
 {}

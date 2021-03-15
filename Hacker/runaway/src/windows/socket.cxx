@@ -9,6 +9,8 @@ Socket::Socket()
     , _blocking(true)  // Default state when connected is 'true'
 {}
 
+Socket::~Socket() = default;
+
 Socket & Socket::operator=(const SOCKET & fd)
 {
 	this->fd(fd);

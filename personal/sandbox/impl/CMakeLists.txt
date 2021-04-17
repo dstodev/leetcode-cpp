@@ -1,11 +1,13 @@
 project(ImplTesting)
 
 add_library(private
-	private
+	private.hxx
+	private.cxx
 )
 
 add_library(public
-	public
+	public.hxx
+	public.cxx
 )
 target_link_libraries(public
 	PRIVATE
@@ -13,7 +15,7 @@ target_link_libraries(public
 )
 
 add_executable(consumer
-	consumer
+	consumer.cxx
 )
 target_link_libraries(consumer
 	PRIVATE

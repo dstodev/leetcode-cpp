@@ -5,7 +5,7 @@ using std::cout;
 using std::endl;
 
 
-void Intermediate::funcOne() const
+void Intermediate::func_one() const
 {
 	cout << "Implementation" << endl;
 }

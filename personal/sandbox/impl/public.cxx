@@ -12,7 +12,7 @@ ImplPublic::~ImplPublic()
 	delete _impl;
 }
 
-void ImplPublic::funcOne() const
+void ImplPublic::func_one() const
 {
-	_impl->getIntermediate().funcOne();
+	_impl->getIntermediate().func_one();
 }

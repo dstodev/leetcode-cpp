@@ -28,7 +28,7 @@ BraceWrapping:
 # Align all the things!
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
-AlignEscapedNewlines: Left
+AlignEscapedNewlines: DontAlign
 AlignOperands: AlignAfterOperator
 
 # Penalties

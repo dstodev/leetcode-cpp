@@ -4,7 +4,7 @@
 class Intermediate
 {
 public:
-	void funcOne() const;
+	void func_one() const;
 };
 
 

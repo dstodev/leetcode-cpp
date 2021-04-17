@@ -5,17 +5,30 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(LLDB) Launch",
+			"name": "(Python) Current File",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "internalConsole",
+			"presentation": {
+				"group": "General",
+			}
+		},
+		{
+			"name": "(C++ LLDB) Launch",
 			"type": "lldb",
 			"request": "launch",
 			"program": "${command:cmake.launchTargetPath}",
 			"cwd": "${command:cmake.launchTargetDirectory}",
 			"args": [],
 			"env": {},
-			"terminal": "console"
+			"terminal": "console",
+			"presentation": {
+				"group": "General",
+			}
 		},
 		{
-			"name": "(Windows) Launch",
+			"name": "(C++ MSVC) Launch",
 			"type": "cppvsdbg",
 			"request": "launch",
 			"program": "${command:cmake.launchTargetPath}",
@@ -23,7 +36,21 @@
 			"args": [],
 			"environment": [],
 			"stopAtEntry": false,
-			"externalConsole": false
-		}
+			"externalConsole": false,
+			"presentation": {
+				"group": "General",
+			}
+		},
+		{
+			"name": "(unittest) Fetch",
+			"type": "python",
+			"request": "launch",
+			"module": "unittest",
+			"cwd": "${workspaceFolder}/puzzles/LeetCode/fetch",
+			"console": "internalConsole",
+			"presentation": {
+				"group": "LeetCode",
+			},
+		},
 	]
 }

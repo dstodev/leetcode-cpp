@@ -1,5 +1,5 @@
 project(GetoptTesting)
 
-add_executable(main
-	main
+add_executable(getopt
+	main.cxx
 )

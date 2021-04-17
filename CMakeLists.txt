@@ -6,6 +6,4 @@ include(CTest)
 add_subdirectory(third-party)
 
 add_subdirectory(personal)
-
-add_subdirectory(Hacker)
-add_subdirectory(LeetCode)
+add_subdirectory(puzzles)

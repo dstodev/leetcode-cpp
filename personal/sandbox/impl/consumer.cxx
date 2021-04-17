@@ -4,7 +4,7 @@
 int main()
 {
 	ImplPublic uut;
-	uut.funcOne();
+	uut.func_one();
 
 	return 0;
 }

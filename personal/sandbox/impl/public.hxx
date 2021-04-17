@@ -10,7 +10,7 @@ public:
 	ImplPublic();
 	virtual ~ImplPublic();
 
-	void funcOne() const;
+	void func_one() const;
 
 private:
 	ImplPrivate * _impl;

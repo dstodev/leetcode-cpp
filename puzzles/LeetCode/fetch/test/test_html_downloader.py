@@ -5,6 +5,7 @@ from src.html_downloader import HTMLDownloader
 
 
 class TestHTMLDownloader(TestCase):
+
     def test_get(self):
         with mock.patch('src.html_downloader.SESSION') as session:
             html = HTMLDownloader.get('valid-url')

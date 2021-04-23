@@ -71,17 +71,40 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    def test_convert_strips_tags_inside_code_tags(self):
+        html = [
+            'This is some ',
+            '<code><em>formatted code</em></code> ',
+            'text.'
+        ]
+        expected = 'This is some `formatted code` text.'
+        actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
+
     def test_convert_strips_nested_pre_tags(self):
         html = [
             '<em>This is</em><pre>',
             '<em>some</em> ',
-            '<pre><em>nested text</em> </pre>',
+            '<pre><em>nested text</em></pre> ',
             '<em>to use</em>.',
             '</pre><em>whoa</em>'
         ]
         expected = '*This is*```\nsome nested text to use.\n```*whoa*'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
+
+    def test_convert_strips_nested_code_tags(self):
+        html = [
+            '<em>This is</em> ',
+            '<code><em>some code</em> ',
+            '<code><em>nested inside</em></code> ',
+            '<em>other code</em></code>. ',
+            '<em>whoa</em>'
+        ]
+        expected = '*This is* `some code nested inside other code`. *whoa*'
+        actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
+
 
     def test_convert_list(self):
         html = [

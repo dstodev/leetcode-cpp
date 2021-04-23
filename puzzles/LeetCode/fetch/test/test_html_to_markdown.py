@@ -33,8 +33,8 @@ class TestHtmlToMarkdown(TestCase):
         self.assertEqual(expected, actual)
 
     def test_convert_pre_tag(self):
-        html = 'This is some <pre>text</pre>. It is <pre>preformatted</pre>.'
-        expected = 'This is some ```\ntext\n```. It is ```\npreformatted\n```.'
+        html = 'This is some<pre>text</pre>. It is<pre>preformatted</pre>.'
+        expected = 'This is some\n```\ntext\n```\n. It is\n```\npreformatted\n```\n.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
@@ -67,7 +67,7 @@ class TestHtmlToMarkdown(TestCase):
             '</pre><em>preformatted</em><pre>',
             'text.</pre>'
         ]
-        expected = 'This is```\nsome text nested inside\n```*preformatted*```\ntext.\n```'
+        expected = 'This is\n```\nsome text nested inside\n```\n*preformatted*\n```\ntext.\n```\n'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
@@ -83,13 +83,13 @@ class TestHtmlToMarkdown(TestCase):
 
     def test_convert_strips_nested_pre_tags(self):
         html = [
-            '<em>This is</em><pre>',
-            '<em>some</em> ',
+            '<em>This is</em>',
+            '<pre><em>some</em> ',
             '<pre><em>nested text</em></pre> ',
-            '<em>to use</em>.',
-            '</pre><em>whoa</em>'
+            '<em>to use</em></pre>. ',
+            '<em>whoa</em>'
         ]
-        expected = '*This is*```\nsome nested text to use.\n```*whoa*'
+        expected = '*This is*\n```\nsome nested text to use\n```\n. *whoa*'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 

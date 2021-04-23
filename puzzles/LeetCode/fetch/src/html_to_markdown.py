@@ -4,16 +4,15 @@ map = {
     'code': '`',
     'em': '*',
     'p': '\n',
-    'pre': '```\n',
+    'pre': '\n```\n',
     'strong': '**',
     'ul': '',
     'li': '- ',
     'sup': '<sup>',
 }
 
-# Not all tags have a special end tag map.
+# Not all tags have a special end tag.
 map_endtag = {
-    'pre': '\n```',
     'li': '\n',
     'sup': '</sup>',
 }

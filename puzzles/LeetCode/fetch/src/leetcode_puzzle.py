@@ -1,6 +1,7 @@
 import re
 
-from html_downloader import HTMLDownloader
+from src.html_downloader import HTMLDownloader
+from src.html_to_markdown import HtmlToMarkdown
 
 
 class LeetCodePuzzle:
@@ -12,6 +13,8 @@ class LeetCodePuzzle:
         self.title = ''
         self.summary = []
         self.code = []
+
+        self.md = HtmlToMarkdown()
 
     def fetch(self):
         self.get_puzzle_html()
@@ -32,42 +35,33 @@ class LeetCodePuzzle:
         selection = self.html.find(selector)
         selection = [s.html for s in selection]
 
-        summary = self.html_to_md(selection)
-        summary = self.reformat_puzzle_summary(summary)
+        summary = self.md.convert(selection)
         summary = self.insert_placeholder_newlines(summary)
         summary = self.remove_duplicate_whitespace_lines(summary)
+        summary = self.remove_border_whitespace_lines(summary)
+        summary = self.reformat_puzzle_summary(summary)
 
         self.summary = summary
 
-    def html_to_md(self, html):
-        if isinstance(html, str):
-            html = [html]
-            return_as_str = True
-        else:
-            return_as_str = False
-
-        md = []
-
-        for line in html:
-            line = re.sub(r'</?code>', '`', line)
-            line = re.sub(r'</?strong>', '**', line)
-            line = re.sub(r'</?em>', '*', line)
-            line = re.sub(r'</?pre>', '```', line)
-            line = re.sub(r'<p>', '', line)
-            line = re.sub(r'</p>', '\n', line)
-            line = re.sub(r'\xa0', ' ', line)
-            md.append(line)
-
-        if return_as_str:
-            md = md[0]
-
-        return md
-
     def reformat_puzzle_summary(self, summary):
+        # formatted_summary = []
+
+        # for i, (a, b) in enumerate(zip(summary[0::2], summary[1::2])):
+        #     print(f'{2*i}. {a}')
+        #     print(f'{2*i+1}. {b}')
+        #     print()
+        #     if a == '' and b == '```':
+        #         pass
+        #     else:
+        #         formatted_summary.append(a)
+
         return summary
 
     def insert_placeholder_newlines(self, lines):
         expanded_lines = []
+
+        if isinstance(lines, str):
+            lines = [lines]
 
         for line in lines:
             tokens = line.split('\n')
@@ -87,6 +81,19 @@ class LeetCodePuzzle:
                 if not whitespace_inserted:
                     sanitized_lines.append('')
                     whitespace_inserted = True
+
+        return sanitized_lines
+
+    def remove_border_whitespace_lines(self, lines):
+        sanitized_lines = []
+
+        if lines[0]:
+            sanitized_lines.append(lines[0])
+
+        sanitized_lines.extend(lines[1:-1])
+
+        if lines[-1]:
+            sanitized_lines.append(lines[-1])
 
         return sanitized_lines
 

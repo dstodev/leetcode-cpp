@@ -3,7 +3,7 @@ import os
 import sys
 from pathlib import Path
 
-from html_downloader import HTMLDownloader
+from src.html_downloader import HTMLDownloader
 
 
 def parse_args():

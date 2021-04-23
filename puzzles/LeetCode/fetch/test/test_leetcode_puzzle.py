@@ -2,9 +2,8 @@ from pathlib import Path
 from unittest import TestCase, main, mock
 
 import requests_html
-
-from leetcode_puzzle import LeetCodePuzzle
-from take_snapshot import take_snapshot
+from src.leetcode_puzzle import LeetCodePuzzle
+from src.take_snapshot import take_snapshot
 
 
 class TestLeetcodePuzzle(TestCase):
@@ -20,15 +19,17 @@ class TestLeetcodePuzzle(TestCase):
     valid_suffix = 'valid-puzzle-url-suffix'
 
     # The real deal!
-    # puzzle_suffix = 'two-sum'
-    puzzle_url_suffix = 'add-two-numbers'
+    puzzle_suffix = 'two-sum'
+    #puzzle_url_suffix = 'add-two-numbers'
 
     @classmethod
     def setUpClass(cls):
-        """ take_snapshot() is very slow, as it renders javascript using a
+        """take_snapshot() is very slow, as it renders javascript using a
         headless browser. Collect test snapshot only when needed.
         """
         super().setUpClass()
+
+        cls.maxDiff = 1500
 
         cls.assert_puzzle_cached('two-sum')
         cls.assert_puzzle_cached('add-two-numbers')
@@ -83,63 +84,6 @@ class TestLeetcodePuzzle(TestCase):
         self.lcp.extract_puzzle_title()
         self.assertEqual('1. Two Sum', self.lcp.title)
 
-    def test_html_to_md_code_tag(self):
-        html = 'This is some <code>text</code>. It has <code>code snippets</code>.'
-        expected = 'This is some `text`. It has `code snippets`.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_strong_tag(self):
-        html = 'This is some <strong>text</strong>. It has <strong>bold parts</strong>.'
-        expected = 'This is some **text**. It has **bold parts**.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_em_tag(self):
-        html = 'This is some <em>text</em>. It has <em>italic parts</em>.'
-        expected = 'This is some *text*. It has *italic parts*.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_strong_and_em_tags(self):
-        html = 'This text has <strong>bold and <em>italic</em></strong> parts.'
-        expected = 'This text has **bold and *italic*** parts.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_pre_tag(self):
-        html = 'This is some <pre>text</pre>. It is <pre>preformatted</pre>.'
-        expected = 'This is some ```text```. It is ```preformatted```.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_p_tag(self):
-        html = '<p>This is some text.</p><p>It is written in paragraphs.</p>'
-        expected = 'This is some text.\nIt is written in paragraphs.\n'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_strips_hex_a0(self):
-        html = u'This is some text.\xa0It has a non-breaking space in it.'
-        expected = 'This is some text. It has a non-breaking space in it.'
-        actual = self.lcp.html_to_md(html)
-        self.assertEqual(expected, actual)
-
-    def test_html_to_md_accepts_lists(self):
-        html = [
-            'This is<pre>',
-            'some text</pre>.'
-        ]
-        expected = [
-            'This is```',
-            'some text```.'
-        ]
-        actual = self.lcp.html_to_md(html)
-        self.assertListEqual(expected, actual)
-
-    def test_reformat_puzzle_summary(self):
-        pass
-
     def test_insert_placeholder_newlines(self):
         lines = [
             'These are\n',
@@ -187,6 +131,22 @@ class TestLeetcodePuzzle(TestCase):
         actual = self.lcp.remove_duplicate_whitespace_lines(lines)
         self.assertListEqual(expected, actual)
 
+    def test_remove_border_whitespace_lines(self):
+        lines = [
+            '',
+            'This is a line surrounded by whitespace.',
+            '',
+            'And here\'s another.',
+            '',
+        ]
+        expected = [
+            'This is a line surrounded by whitespace.',
+            '',
+            'And here\'s another.',
+        ]
+        actual = self.lcp.remove_border_whitespace_lines(lines)
+        self.assertListEqual(expected, actual)
+
     def test_extract_puzzle_summary(self):
         expected = [
             'Given an array of integers `nums` and an integer `target`, return *indices of the two numbers such that they add up to `target`*.',
@@ -222,6 +182,12 @@ class TestLeetcodePuzzle(TestCase):
         ]
         self.lcp.get_puzzle_html()
         self.lcp.extract_puzzle_summary()
+
+        for e, a in zip(expected, self.lcp.summary):
+            print(repr(e))
+            print(repr(a))
+            print('---\n')
+
         self.assertListEqual(expected, self.lcp.summary)
 
     def test_extract_given_code(self):

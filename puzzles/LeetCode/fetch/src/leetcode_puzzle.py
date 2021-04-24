@@ -35,27 +35,61 @@ class LeetCodePuzzle:
         selection = self.html.find(selector)
         selection = [s.html for s in selection]
 
-        summary = self.md.convert(selection)
+        summary = self.md.convert(selection).split('\n')
+        summary = self.reformat_puzzle_summary(summary)
         summary = self.insert_placeholder_newlines(summary)
         summary = self.remove_duplicate_whitespace_lines(summary)
         summary = self.remove_border_whitespace_lines(summary)
-        summary = self.reformat_puzzle_summary(summary)
 
         self.summary = summary
 
     def reformat_puzzle_summary(self, summary):
-        # formatted_summary = []
+        formatted_summary = []
 
-        # for i, (a, b) in enumerate(zip(summary[0::2], summary[1::2])):
-        #     print(f'{2*i}. {a}')
-        #     print(f'{2*i+1}. {b}')
-        #     print()
-        #     if a == '' and b == '```':
-        #         pass
-        #     else:
-        #         formatted_summary.append(a)
+        for i, line in enumerate(summary):
+            line_prev = self._get_prev_line(i, summary)
+            line_next = self._get_next_line(i, summary)
 
-        return summary
+            insertion = self._accept_line(line_prev, line, line_next)
+
+            if insertion is not None:
+                formatted_summary.append(insertion)
+
+        return formatted_summary
+
+    def _get_prev_line(self, index, lines):
+        if index == 0:
+            # Do not return the final element (0-1 = -1) in the list.
+            value = None
+        else:
+            value = lines[index - 1]
+
+        return value
+
+    def _get_next_line(self, index, lines):
+        try:
+            value = lines[index + 1]
+        except IndexError:
+            value = None
+
+        return value
+
+    def _accept_line(self, line_prev, line, line_next):
+        example = re.compile(r'[Ee]xample \d+')
+
+        if line_prev == '```' and line == '':
+            line = None
+
+        elif line == '' and line_next == '```':
+            line = None
+
+        elif line_prev != '' and example.search(line):
+            line = '\n' + line
+
+        elif example.search(line_prev or '') and line == '':
+            line = None
+
+        return line
 
     def insert_placeholder_newlines(self, lines):
         expanded_lines = []

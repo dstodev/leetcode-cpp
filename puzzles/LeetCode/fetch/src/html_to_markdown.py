@@ -1,6 +1,6 @@
 from html.parser import HTMLParser
 
-map = {
+map_tag = {
     'code': '`',
     'em': '*',
     'p': '\n',
@@ -11,7 +11,7 @@ map = {
     'sup': '<sup>',
 }
 
-# Not all tags have a special end tag.
+# Not all tags have a special end token, but take priority for each that do.
 map_endtag = {
     'li': '\n',
     'sup': '</sup>',
@@ -49,7 +49,7 @@ class HtmlToMarkdown(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if self.disablers == 0:
             try:
-                self.markdown += map[tag]
+                self.markdown += map_tag[tag]
             except:
                 raise
 
@@ -64,7 +64,7 @@ class HtmlToMarkdown(HTMLParser):
 
             except KeyError:
                 try:
-                    self.markdown += map[tag]
+                    self.markdown += map_tag[tag]
                 except:
                     raise
 

@@ -8,6 +8,9 @@ class TestHtmlToMarkdown(TestCase):
     def setUp(self):
         self.md = HtmlToMarkdown()
 
+    def test_instance(self):
+        self.assertIsNotNone(self.md)
+
     def test_convert_code_tag(self):
         html = 'This is some <code>text</code>. It has <code>code snippets</code>.'
         expected = 'This is some `text`. It has `code snippets`.'

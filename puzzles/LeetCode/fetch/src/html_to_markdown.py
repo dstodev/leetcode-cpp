@@ -1,6 +1,8 @@
 from html.parser import HTMLParser
 
-map_tag = {
+from src.markdown_element import MarkdownElement
+
+MAP_TAG = {
     'code': '`',
     'em': '*',
     'p': '\n',
@@ -12,7 +14,7 @@ map_tag = {
 }
 
 # Not all tags have a special end token, but take priority for each that do.
-map_endtag = {
+MAP_ENDTAG = {
     'li': '\n',
     'sup': '</sup>',
 }
@@ -24,7 +26,9 @@ class HtmlToMarkdown(HTMLParser):
     def __init__(self):
         super().__init__()
 
-        self.markdown = ''
+        self.markdown = []
+        self.token = None
+
         self.disablers = 0
 
     def _handle_disabler_increment(self, tag):
@@ -39,17 +43,26 @@ class HtmlToMarkdown(HTMLParser):
         if isinstance(html, str):
             html = [html]
 
-        self.markdown = ''
+        self.markdown = []
+        self.token = MarkdownElement()
 
         for line in html:
             self.feed(line)
 
+        self.commit_token()
+
         return self.markdown
+
+    def commit_token(self):
+        if self.token:
+            self.markdown.append(self.token)
+            self.token = MarkdownElement()
 
     def handle_starttag(self, tag, attrs):
         if self.disablers == 0:
+            self.commit_token()
             try:
-                self.markdown += map_tag[tag]
+                self.token.tag = MAP_TAG[tag]
             except:
                 raise
 
@@ -59,15 +72,8 @@ class HtmlToMarkdown(HTMLParser):
         self._handle_disabler_decrement(tag)
 
         if self.disablers == 0:
-            try:
-                self.markdown += map_endtag[tag]
-
-            except KeyError:
-                try:
-                    self.markdown += map_tag[tag]
-                except:
-                    raise
+            self.commit_token()
 
     def handle_data(self, data):
         data = data.replace(u'\xa0', ' ')
-        self.markdown += data
+        self.token.data = data

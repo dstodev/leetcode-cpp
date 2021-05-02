@@ -20,7 +20,7 @@ def make_markdown_elements(*markdown_string):
 
                 for markdown_string in children:
                     child_md = make_markdown_elements(markdown_string)
-                    children_md.append(child_md)
+                    children_md.extend(child_md)
 
                 token = MarkdownElement(tag, data, children_md)
             except IndexError:
@@ -47,6 +47,15 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    def test_convert_trailing_tag(self):
+        html = '<em>This text has no untagged content.</em>'
+
+        # '*This text has no untagged content.*'
+        expected = make_markdown_elements(('*', 'This text has no untagged content.'))
+
+        actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
+
     def test_convert_strong_tag(self):
         html = 'This is some <strong>text</strong>. It has <strong>bold parts</strong>.'
 
@@ -69,7 +78,7 @@ class TestHtmlToMarkdown(TestCase):
         html = 'This text has <strong>bold and <em>italic</em></strong> parts.'
 
         # 'This text has **bold and *italic*** parts.'
-        expected = make_markdown_elements('This text has ', ('**', 'bold and ', [('*', 'italic parts')]), '.')
+        expected = make_markdown_elements('This text has ', ('**', 'bold and ', [('*', 'italic')]), ' parts.')
 
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)

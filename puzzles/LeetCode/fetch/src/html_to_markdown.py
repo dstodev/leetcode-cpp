@@ -5,8 +5,8 @@ from src.markdown_element import MarkdownElement
 MAP_TAG = {
     'code': '`',
     'em': '*',
-    'p': '\n',
-    'pre': '\n```\n',
+    'p': 'p',
+    'pre': '```',
     'strong': '**',
     'ul': '',
     'li': '- ',
@@ -61,9 +61,13 @@ class HtmlToMarkdown(HTMLParser):
             #      We do not care to nest deeper, commit the current data and move on.
             # 2. A parent tag is currently stored:
             #      We need to nest one level deeper (into the current element's children)
+            #      We also must remember where the nested children go.
 
             if self.current_element_is_tagless():
                 self.commit_current_element()  # Will pop from stack
+            else:
+                index = len(self.current_element().children)
+                self.current_element().data += f'@{index}'
 
             element_with_new_tag = MarkdownElement(tag_md)
             self.element_stack.append(element_with_new_tag)

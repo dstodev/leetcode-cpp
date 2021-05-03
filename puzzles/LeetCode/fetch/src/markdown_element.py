@@ -6,3 +6,4 @@ class MarkdownElement:
     tag: str = ''
     data: str = ''
     children: list = field(default_factory=list)
+    hidden: bool = False

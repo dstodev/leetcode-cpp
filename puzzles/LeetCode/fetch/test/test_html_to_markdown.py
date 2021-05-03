@@ -14,6 +14,12 @@ def make_markdown_elements(*markdown_string):
             tag = element[0]
             data = element[1]
 
+            if tag[0] == '-':
+                hidden = True
+                tag = tag[1:]
+            else:
+                hidden = False
+
             try:
                 children = element[2]
                 children_md = []
@@ -22,9 +28,9 @@ def make_markdown_elements(*markdown_string):
                     child_md = make_markdown_elements(markdown_string)
                     children_md.extend(child_md)
 
-                token = MarkdownElement(tag, data, children_md)
+                token = MarkdownElement(tag, data, children_md, hidden)
             except IndexError:
-                token = MarkdownElement(tag, data)
+                token = MarkdownElement(tag, data, hidden=hidden)
 
         md.append(token)
     return md
@@ -78,52 +84,63 @@ class TestHtmlToMarkdown(TestCase):
         html = 'This text has <strong>bold and <em>italic</em></strong> parts.'
 
         # 'This text has **bold and *italic*** parts.'
-        expected = make_markdown_elements('This text has ', ('**', 'bold and ', [('*', 'italic')]), ' parts.')
+        expected = make_markdown_elements('This text has ', ('**', 'bold and @0', [('*', 'italic')]), ' parts.')
 
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_pre_tag(self):
-        html = 'This is some<pre>text</pre>. It is<pre>preformatted</pre>.'
-        expected = 'This is some\n```\ntext\n```\n. It is\n```\npreformatted\n```\n.'
+        html = 'This is some <pre>text</pre>. It is <pre>preformatted</pre>.'
+        # 'This is some ```text```. It is ```preformatted```.'
+        expected = make_markdown_elements('This is some ', ('```', 'text'), '. It is ', ('```', 'preformatted'), '.')
+
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_p_tag(self):
         html = '<p>This is some text.</p><p>It is written in paragraphs.</p>'
-        expected = '\nThis is some text.\n\nIt is written in paragraphs.\n'
+
+        # 'This is some text. It is written in paragraphs.'
+        expected = make_markdown_elements(('p', 'This is some text.'), ('p', 'It is written in paragraphs.'))
+
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_strips_hex_a0(self):
         html = u'This is some text.\xa0It has a non-breaking space in it.'
-        expected = 'This is some text. It has a non-breaking space in it.'
+
+        # 'This is some text. It has a non-breaking space in it.'
+        expected = make_markdown_elements('This is some text. It has a non-breaking space in it.')
+
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_accepts_lists(self):
         html = [
             'This is <em>',
             'some text</em>.'
         ]
+
+        # 'This is *some text*.'
+        expected = make_markdown_elements('This is ', ('*', 'some text'), '.')
+
         actual = self.md.convert(html)
-        expected = 'This is *some text*.'
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
-    def test_convert_strips_tags_inside_pre_tags(self):
+    def test_convert_hides_tags_inside_pre_tags(self):
         html = [
-            'This is<pre>',
-            'some <em>text ',
-            'nested</em> inside',
-            '</pre><em>preformatted</em><pre>',
-            'text.</pre>'
+            'This is <pre><em>some text</em> nested inside</pre>',
+            ' <em>preformatted</em> <pre>text.</pre>',
         ]
-        expected = 'This is\n```\nsome text nested inside\n```\n*preformatted*\n```\ntext.\n```\n'
+
+        # 'This is ```some text nested inside``` *preformatted* ```text.```'
+        expected = make_markdown_elements('This is ',
+                                          ('```', '@0 nested inside', [('-*', 'some text')]),
+                                          ' ',
+                                          ('*', 'preformatted'),
+                                          ' ',
+                                          ('```', 'text.'))
+
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 

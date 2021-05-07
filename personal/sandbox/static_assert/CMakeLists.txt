@@ -1,10 +1,12 @@
 project(StaticAssertTesting)
 
-add_executable(vector_size
-	vector_size.cxx
+set(target_name "${PROJECT_NAME}_main")
+
+add_executable(${target_name}
+	main.cxx
 )
 
-target_compile_features(vector_size
+target_compile_features(${target_name}
 	PRIVATE
 		cxx_std_20
 )

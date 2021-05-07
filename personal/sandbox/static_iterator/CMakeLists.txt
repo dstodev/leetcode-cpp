@@ -1,4 +1,4 @@
-project(InterfaceDestructor)
+project(StaticIterationTesting)
 
 set(target_name "${PROJECT_NAME}_main")
 

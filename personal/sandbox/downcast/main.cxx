@@ -1,31 +1,27 @@
 #include <iostream>
 
 
-struct Parent
-{
+struct Parent {
 	virtual ~Parent() = default;
-	virtual void func_one()
-	{
+
+	virtual void func_one() {
 		std::cout << "Parent: One" << std::endl;
 	}
 };
 
-struct Child : Parent
-{
-	void func_one()
-	{
+struct Child : Parent {
+	void func_one() {
 		std::cout << "Child: One" << std::endl;
 	}
-	void func_two()
-	{
+
+	void func_two() {
 		std::cout << "Child: Two" << std::endl;
 	}
 };
 
 
-int main()
-{
-	Parent * test = new Child;
+int main() {
+	Parent *test = new Child;
 
 	test->func_one();
 

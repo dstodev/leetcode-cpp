@@ -1,5 +1,7 @@
 project(StyleTesting)
 
-add_executable(long_parameter_list
-	long_parameter_list.cxx
+set(target_name "${PROJECT_NAME}_main")
+
+add_executable(${target_name}
+	main.cxx
 )

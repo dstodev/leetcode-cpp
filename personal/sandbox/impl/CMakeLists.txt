@@ -1,23 +1,27 @@
 project(ImplTesting)
 
-add_library(private
+set(target_name_private "${PROJECT_NAME}_private")
+set(target_name_public "${PROJECT_NAME}_public")
+set(target_name_consumer "${PROJECT_NAME}_consumer")
+
+add_library(${target_name_private}
 	private.hxx
 	private.cxx
 )
 
-add_library(public
+add_library(${target_name_public}
 	public.hxx
 	public.cxx
 )
-target_link_libraries(public
+target_link_libraries(${target_name_public}
 	PRIVATE
 		private
 )
 
-add_executable(consumer
+add_executable(${target_name_consumer}
 	consumer.cxx
 )
-target_link_libraries(consumer
+target_link_libraries(${target_name_consumer}
 	PRIVATE
 		public
 )

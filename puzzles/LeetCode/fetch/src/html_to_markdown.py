@@ -65,12 +65,12 @@ class HtmlToMarkdown(HTMLParser):
 
             if self.current_element_is_tagless():
                 self.commit_current_element()  # Will pop from stack
-            else:
-                index = len(self.current_element().children)
-                self.current_element().data += f'@{index}'
 
-            element_with_new_tag = MarkdownElement(tag_md)
-            self.element_stack.append(element_with_new_tag)
+            self.make_new_element_if_empty()
+            index = len(self.current_element().children)
+            self.current_element().data += f'@{index}'
+            self.current_element().tag = tag_md
+
         else:
             self.make_new_element_if_empty()
             self.current_element().tag = tag_md
@@ -89,10 +89,11 @@ class HtmlToMarkdown(HTMLParser):
     def current_element(self):
         return self.element_stack[-1]
 
+    # TODO: Don't look at default state. Shouldn't matter.
     def current_element_has_content(self):
         try:
             element = self.current_element()
-            return bool(element)
+            return (element != MarkdownElement())
         except IndexError:
             return False
 

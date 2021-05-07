@@ -47,6 +47,9 @@
 			"request": "launch",
 			"module": "unittest",
 			"cwd": "${workspaceFolder}/puzzles/LeetCode/fetch",
+			"args": [
+				"--failfast"
+			],
 			"console": "internalConsole",
 			"presentation": {
 				"group": "LeetCode",

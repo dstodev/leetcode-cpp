@@ -10,7 +10,7 @@ enum class Values
 };
 
 
-template <Values value_T>
+template <Values>
 struct ToString
 {};
 

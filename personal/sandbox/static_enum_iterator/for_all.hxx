@@ -12,8 +12,8 @@ struct for_all_iterator
 	template <typename... Args_T>
 	explicit for_all_iterator(Args_T &&... args)
 	{
-		Visitor_T<static_cast<Enum_T>(i)>((args)...);
-		for_all_iterator<Enum_T, Enum_N, i + 1, Visitor_T>((args)...);
+		Visitor_T<static_cast<Enum_T>(i)>(args...);
+		for_all_iterator<Enum_T, Enum_N, i + 1, Visitor_T>(args...);
 	}
 };
 
@@ -31,9 +31,9 @@ template <typename Enum_T, size_t Enum_N, template <Enum_T> class Visitor_T>
 struct for_all
 {
 	template <typename... Args_T>
-	explicit for_all(Args_T &&... args)
+	explicit for_all(Args_T... args)
 	{
-		for_all_iterator<Enum_T, Enum_N, 0, Visitor_T>((args)...);
+		for_all_iterator<Enum_T, Enum_N, 0, Visitor_T>(args...);
 	}
 };
 

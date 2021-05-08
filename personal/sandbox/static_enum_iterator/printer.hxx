@@ -6,21 +6,21 @@
 #include "values.hxx"
 
 
-template <Values value_T>
+template <Values Value_T>
 struct printer
 {
 	explicit printer()
 	{
-		std::cout << ToString<value_T>::name << std::endl;
+		std::cout << ToString<Value_T>::name << std::endl;
 	}
 };
 
-template <Values value_T>
+template <Values Value_T>
 struct printer_with_arguments
 {
 	explicit printer_with_arguments(int value)
 	{
-		std::cout << ToString<value_T>::name << ' ' << value << std::endl;
+		std::cout << ToString<Value_T>::name << ' ' << value << std::endl;
 	}
 };
 

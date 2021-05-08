@@ -7,5 +7,5 @@ add_executable(${target_name}
 
     values.hxx
     printer.hxx
-    for_all.hxx
+        for_enum.hxx
 )

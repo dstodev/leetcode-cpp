@@ -27,7 +27,7 @@ BraceWrapping:
 
 # Align all the things!
 AlignAfterOpenBracket: Align
-AlignConsecutiveMacros: true
+AlignConsecutiveMacros: Consecutive
 AlignEscapedNewlines: DontAlign
 AlignOperands: AlignAfterOperator
 
@@ -52,7 +52,7 @@ IndentPPDirectives: None
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Middle
 ReflowComments: true
-SortIncludes: true
+SortIncludes: CaseInsensitive
 SortUsingDeclarations: true
 SpaceAfterCStyleCast: true
 SpaceBeforeCpp11BracedList: true

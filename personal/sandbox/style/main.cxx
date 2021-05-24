@@ -2,7 +2,7 @@ void long_parameter_list(int parameter_1, int parameter_2, int parameter_3, int 
 
 struct ReallySuperExtraLongClassName
 {
-	ReallySuperExtraLongClassName(int value)
+	explicit ReallySuperExtraLongClassName(int value)
 	    : value(value)
 	{}
 	~ReallySuperExtraLongClassName() = default;

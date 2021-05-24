@@ -28,7 +28,8 @@ def make_markdown_elements(*markdown_string):
                     child_md = make_markdown_elements(markdown_string)
                     children_md.extend(child_md)
 
-                token = MarkdownElement(tag, data, children_md, hidden)
+                # TODO: Children don't exist anymore. Change this to new data layout.
+                token = MarkdownElement(tag, data, children_md, hidden=hidden)
             except IndexError:
                 token = MarkdownElement(tag, data, hidden=hidden)
 

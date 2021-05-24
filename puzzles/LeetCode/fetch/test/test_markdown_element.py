@@ -4,17 +4,20 @@ from src.markdown_element import MarkdownElement
 
 
 class TestMarkdownElement(TestCase):
-
     def test_default_instance(self):
         me = MarkdownElement()
         self.assertEqual('', me.tag)
-        self.assertEqual('', me.data)
-        self.assertEqual([], me.children)
-        self.assertFalse(me.hidden)
+        self.assertEqual([], me.data)
+        self.assertEqual({}, me.attrs)
 
     def test_nondefault_instance(self):
-        me = MarkdownElement('tag', 'data', ['children'], True)
+        me = MarkdownElement('tag', ['data'], {'hidden': True})
         self.assertEqual('tag', me.tag)
-        self.assertEqual('data', me.data)
-        self.assertEqual(['children'], me.children)
-        self.assertTrue(me.hidden)
+        self.assertEqual(['data'], me.data)
+        self.assertEqual({'hidden': True}, me.attrs)
+
+    def test_instance_with_attrs_as_kwargs(self):
+        me = MarkdownElement('tag', ['data'], hidden=True)
+        self.assertEqual('tag', me.tag)
+        self.assertEqual(['data'], me.data)
+        self.assertEqual({'hidden': True}, me.attrs)

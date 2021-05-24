@@ -26,7 +26,6 @@ class HtmlToMarkdown(HTMLParser):
     def __init__(self):
         super().__init__()
 
-        self.markdown = []
         self.element_stack = []
         self.disablers = 0
 
@@ -56,28 +55,14 @@ class HtmlToMarkdown(HTMLParser):
         tag_md = MAP_TAG[tag]
 
         if self.current_element_has_content():
-            # A start tag was encountered but content is already stored. This means either:
-            # 1. Tagless data is currently stored:
-            #      We do not care to nest deeper, commit the current data and move on.
-            # 2. A parent tag is currently stored:
-            #      We need to nest one level deeper (into the current element's children)
-            #      We also must remember where the nested children go.
+            self.commit_current_element()
 
-            if self.current_element_is_tagless():
-                self.commit_current_element()  # Will pop from stack
+        # Current element is now the parent
+        index = len(self.current_element().children)
+        self.current_element().tag = tag_md
 
-            self.make_new_element_if_empty()
-            index = len(self.current_element().children)
-            self.current_element().data += f'@{index}'
-            self.current_element().tag = tag_md
-
-        else:
-            self.make_new_element_if_empty()
-            self.current_element().tag = tag_md
-
-    def make_new_element_if_empty(self):
-        if not self.has_element():
-            self.element_stack.append(MarkdownElement())
+    def make_new_element(self):
+        self.element_stack.append(MarkdownElement())
 
     def has_element(self):
         try:
@@ -90,6 +75,7 @@ class HtmlToMarkdown(HTMLParser):
         return self.element_stack[-1]
 
     # TODO: Don't look at default state. Shouldn't matter.
+    # TODO: Or maybe it's fine?
     def current_element_has_content(self):
         try:
             element = self.current_element()
@@ -97,8 +83,8 @@ class HtmlToMarkdown(HTMLParser):
         except IndexError:
             return False
 
-    def current_element_is_tagless(self):
-        return (self.current_element().tag == '')
+    def current_element_has_tag(self):
+        return bool(self.current_element().tag)
 
     def commit_current_element(self):
         element = self.element_stack.pop()
@@ -108,6 +94,7 @@ class HtmlToMarkdown(HTMLParser):
             self.current_element().children.append(element)
         else:
             self.markdown.append(element)
+            self.make_new_element()
 
     def handle_endtag(self, tag):
         assert MAP_TAG[tag] == self.current_element().tag

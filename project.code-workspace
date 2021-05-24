@@ -3,6 +3,10 @@
 		{
 			"name": "Project: C++ Kata",
 			"path": "."
+		},
+		{
+			"name": "(LeetCode) Fetch",
+			"path": "./puzzles/LeetCode/fetch"
 		}
 	],
 	"settings": {

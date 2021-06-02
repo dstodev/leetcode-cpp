@@ -9,10 +9,13 @@
 			"type": "process",
 			"command": "python",
 			"args": [
-				"${workspaceFolder}/puzzles/LeetCode/fetch/take_snapshot.py",
-				"--puzzle", "${input:string}",
+				"-m", "scripts.take_snapshot",
+				"--puzzle", "two-sum",  // ${input:string}",
 				"--dir", "snapshots",
 			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
 			"problemMatcher": []
 		}
 	],

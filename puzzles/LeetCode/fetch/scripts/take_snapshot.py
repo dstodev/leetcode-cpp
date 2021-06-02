@@ -1,6 +1,4 @@
 import argparse
-import os
-import sys
 from pathlib import Path
 
 from src.html_downloader import HTMLDownloader

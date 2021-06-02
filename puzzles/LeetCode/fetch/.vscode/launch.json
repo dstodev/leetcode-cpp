@@ -6,7 +6,7 @@
 			"type": "python",
 			"request": "launch",
 			"module": "unittest",
-			"cwd": "${workspaceFolder}/puzzles/LeetCode/fetch",
+			"cwd": "${workspaceFolder}",
 			"args": [
 				"--failfast"
 			],

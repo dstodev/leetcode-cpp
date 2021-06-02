@@ -15,9 +15,3 @@ class TestMarkdownElement(TestCase):
         self.assertEqual('tag', me.tag)
         self.assertEqual(['data'], me.data)
         self.assertEqual({'hidden': True}, me.attrs)
-
-    def test_instance_with_attrs_as_kwargs(self):
-        me = MarkdownElement('tag', ['data'], hidden=True)
-        self.assertEqual('tag', me.tag)
-        self.assertEqual(['data'], me.data)
-        self.assertEqual({'hidden': True}, me.attrs)

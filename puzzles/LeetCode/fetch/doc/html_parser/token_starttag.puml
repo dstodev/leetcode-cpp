@@ -1,0 +1,15 @@
+@startuml Start Tag
+start
+
+:Start tag encountered;
+
+if (Current element\nhas data or tag?) then (yes)
+	:Push new element
+	with tag onto stack;
+else (no)
+	:Store tag in
+	current element;
+endif
+
+stop
+@enduml

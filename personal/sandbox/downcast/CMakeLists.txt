@@ -1,4 +1,4 @@
-project(DowncastTesting)
+project(Downcast)
 
 set(target_name "${PROJECT_NAME}_main")
 

@@ -1,4 +1,4 @@
-project(Style)
+project(Concepts)
 
 set(target_name "${PROJECT_NAME}_main")
 

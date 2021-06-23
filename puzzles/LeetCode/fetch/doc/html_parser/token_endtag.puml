@@ -1,0 +1,19 @@
+@startuml End Tag
+start
+
+if (Current element has tag?) then (yes)
+	:Assert tags are the same;
+else (no)
+	:Raise invalid HTML error;
+endif
+
+:Pop element from stack;
+
+if (Element stack is empty?) then (yes)
+	:Push new empty
+	element onto stack;
+else (no)
+endif
+
+stop
+@enduml

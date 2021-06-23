@@ -1,4 +1,4 @@
-project(ImplTesting)
+project(ImplPattern)
 
 set(target_private "${PROJECT_NAME}_private")
 set(target_public "${PROJECT_NAME}_public")

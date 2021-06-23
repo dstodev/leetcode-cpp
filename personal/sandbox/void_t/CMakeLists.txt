@@ -1,4 +1,4 @@
-project(VoidTTesting)
+project(VoidT)
 
 set(target_name "${PROJECT_NAME}_main")
 

@@ -1,0 +1,8 @@
+@startuml Data
+start
+
+:Append data to
+current element;
+
+stop
+@enduml

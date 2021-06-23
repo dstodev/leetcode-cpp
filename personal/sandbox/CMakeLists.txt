@@ -1,5 +1,6 @@
 project(Sandbox)
 
+add_subdirectory(concepts)
 add_subdirectory(downcast)
 add_subdirectory(getopt)
 add_subdirectory(impl)

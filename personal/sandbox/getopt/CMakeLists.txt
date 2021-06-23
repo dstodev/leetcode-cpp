@@ -1,4 +1,4 @@
-project(GetoptTesting)
+project(Getopt)
 
 set(target_name "${PROJECT_NAME}_main")
 

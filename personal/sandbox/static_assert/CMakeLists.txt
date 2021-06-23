@@ -1,4 +1,4 @@
-project(StaticAssertTesting)
+project(StaticAssert)
 
 set(target_name "${PROJECT_NAME}_main")
 

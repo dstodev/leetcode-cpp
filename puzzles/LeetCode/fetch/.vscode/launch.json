@@ -2,7 +2,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(unittest) Fetch",
+			"name": "Unit Tests",
 			"type": "python",
 			"request": "launch",
 			"module": "unittest",

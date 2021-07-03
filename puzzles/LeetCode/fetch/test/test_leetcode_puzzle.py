@@ -3,7 +3,8 @@ from unittest import TestCase, main, mock, skip
 
 import requests_html
 from src.leetcode_puzzle import LeetCodePuzzle
-from src.take_snapshot import take_snapshot
+
+#from src.take_snapshot import take_snapshot
 
 
 @skip('Working on markdown formatter')

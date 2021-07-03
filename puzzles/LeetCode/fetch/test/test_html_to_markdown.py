@@ -1,7 +1,18 @@
+import typing
 from unittest import TestCase, skip
 
 from src.html_to_markdown import MAP_TAG, HtmlToMarkdown
 from src.markdown_element import MarkdownElement
+
+MarkdownList = typing.List[MarkdownElement]
+
+# TODO:
+# What is the difference between markdown = 'text' and markdown = MarkdownElement('', ['text'])?
+
+
+def assert_markdown_equal(expected: MarkdownList, actual: MarkdownList):
+    for element in expected:
+        pass
 
 
 class TestHtmlToMarkdown(TestCase):
@@ -14,93 +25,53 @@ class TestHtmlToMarkdown(TestCase):
 
     def test_convert_code_tag(self):
         html = 'This is some <code>text</code>. It has <code>code snippets</code>.'
+        expected = 'This is some `text`. It has `code snippets`.'
+        actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
 
-        expected = [
-            MarkdownElement('', ['This is some ']),
-            MarkdownElement('`', ['text']),
-            MarkdownElement('', ['. It has ']),
-            MarkdownElement('`', ['code snippets']),
-            MarkdownElement('', '.')
-        ]
-
+    def test_convert_adjacent_tags(self):
+        html = '<code>Adjacent</code><code>Tags</code>'
+        expected = '`Adjacent``Tags`'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_trailing_tag(self):
         html = '<em>This text has no untagged content.</em>'
-
-        expected = [
-            MarkdownElement('*', ['This text has no untagged content.'])
-        ]
-
+        expected = '*This text has no untagged content.*'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_strong_tag(self):
         html = 'This is some <strong>text</strong>. It has <strong>bold parts</strong>.'
-
-        expected = [
-            MarkdownElement('', ['This is some ']),
-            MarkdownElement('**', ['text']),
-            MarkdownElement('', ['. It has ']),
-            MarkdownElement('**', ['bold parts']),
-            MarkdownElement('', ['.'])
-        ]
-
+        expected = 'This is some **text**. It has **bold parts**.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_em_tag(self):
         html = 'This is some <em>text</em>. It has <em>italic parts</em>.'
-
-        expected = [
-            MarkdownElement('', ['This is some ']),
-            MarkdownElement('*', ['text']),
-            MarkdownElement('', ['. It has ']),
-            MarkdownElement('*', ['italic parts']),
-            MarkdownElement('', ['.'])
-        ]
-
+        expected = 'This is some *text*. It has *italic parts*.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_strong_and_em_tags(self):
         html = 'This text has <strong>bold and <em>italic</em></strong> parts.'
-
-        expected = [
-            MarkdownElement('', ['This text has ']),
-            MarkdownElement('**', ['bold and ', MarkdownElement('*', ['italic'])]),
-            MarkdownElement('', [' parts.'])
-        ]
-
+        expected = 'This text has **bold and *italic*** parts.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_pre_tag(self):
         html = 'This is some <pre>text</pre>. It is <pre>preformatted</pre>.'
-
-        expected = [
-            MarkdownElement('', ['This is some ']),
-            MarkdownElement('```', ['text']),
-            MarkdownElement('', ['. It is ']),
-            MarkdownElement('```', ['preformatted']),
-            MarkdownElement('', ['.'])
-        ]
-
+        expected = 'This is some ```text```. It is ```preformatted```.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
     def test_convert_p_tag(self):
         html = '<p>This is some text.</p><p>It is written in paragraphs.</p>'
-
-        expected = [
-            MarkdownElement('', ['This is some text.']),
-            MarkdownElement('', ['It is written in paragraphs.'])
-        ]
-
+        expected = '\nThis is some text.\n\nIt is written in paragraphs.\n'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    @skip('refactoring')
     def test_convert_strips_hex_a0(self):
         html = u'This is some text.\xa0It has a non-breaking space in it.'
 
@@ -111,6 +82,7 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    @skip('refactoring')
     def test_convert_accepts_lists(self):
         html = [
             'This is ',
@@ -126,6 +98,7 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    @skip('refactoring')
     def test_convert_handles_list_split_tags(self):
         html = [
             'This is <em>',

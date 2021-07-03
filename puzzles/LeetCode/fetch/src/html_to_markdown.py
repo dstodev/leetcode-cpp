@@ -5,7 +5,7 @@ from src.markdown_element import MarkdownElement
 MAP_TAG = {
     'code': '`',
     'em': '*',
-    'p': 'p',
+    'p': '\n',
     'pre': '```',
     'strong': '**',
     'ul': '',
@@ -24,66 +24,33 @@ class HtmlToMarkdown(HTMLParser):
     def __init__(self):
         super().__init__()
 
-        self.element_stack = []
+        self.current_element = None
 
     def convert(self, html):
         if isinstance(html, str):
             html = [html]
 
-        self.element_stack = [MarkdownElement()]
+        self.current_element = MarkdownElement()
 
         for line in html:
             self.feed(line)
 
-        return self.current_element().data
+        return self.current_element.flatten()  # TODO: Make flatten optional
 
-    def has_element(self):
-        try:
-            self.current_element()
-            return True
-        except IndexError:
-            return False
+    def handle_starttag(self, tag, attrs):  # feed() callback
+        new_element = MarkdownElement()
+        new_element.tag = MAP_TAG[tag]
+        new_element.parent = self.current_element
 
-    def current_element(self):
-        return self.element_stack[-1]
+        self.current_element.data.append(new_element)
+        self.current_element = new_element
 
-    def handle_starttag(self, tag, attrs):
-        tag_md = MAP_TAG[tag]
+    def handle_endtag(self, tag):  # feed() callback
+        self.current_element = self.current_element.parent
 
-        if self.current_element_has_content():
-            self.push_new_element()
+    def handle_data(self, data):  # feed() callback
+        data = self.sanitize(data)
+        self.current_element.data.append(data)
 
-        self.current_element().tag = tag_md
-
-    def push_new_element(self):
-        self.element_stack.append(MarkdownElement())
-
-    # TODO: Don't look at default state. Shouldn't matter.
-    # TODO: Or maybe it's fine?
-    def current_element_has_content(self):
-        try:
-            element = self.current_element()
-            return (element != MarkdownElement())
-        except IndexError:
-            return False
-
-    def handle_endtag(self, tag):
-        if self.current_element_has_tag():
-            assert MAP_TAG[tag] == self.current_element().tag
-        else:
-            raise ValueError(f'Found end tag "{tag}" without start tag!')
-
-        self.commit_current_element()
-
-    def current_element_has_tag(self):
-        return bool(self.current_element().tag)
-
-    def commit_current_element(self):
-        element = self.element_stack.pop()
-
-        # Popped from element stack, so current element is now the parent
-        self.current_element().data.append(element)
-
-    def handle_data(self, data):
-        data = data.replace(u'\xa0', ' ')
-        self.current_element().data.append(data)
+    def sanitize(self, data):
+        return data.replace(u'\xa0', ' ')

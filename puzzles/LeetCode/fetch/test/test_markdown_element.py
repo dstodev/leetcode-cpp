@@ -60,7 +60,7 @@ class TestMarkdownElement(TestCase):
         self.assertEqual(me, child.parent)
 
     # These following tests test the flatten() function,
-    # where n = the recursion depth sub-elements within this one.
+    # where n = the recursion depth of sub-elements within this one.
     def test_flatten_n1(self):
         me = MarkdownElement('`', ['text'])
 
@@ -85,7 +85,15 @@ class TestMarkdownElement(TestCase):
 
         self.assertEqual(expected, actual)
 
-    def test_flatten_respects_hidden(self):
+    def test_flatten_respects_hidden_n1(self):
+        me = MarkdownElement('`', ['text'], hidden=True)
+
+        expected = 'text'
+        actual = me.flatten()
+
+        self.assertEqual(expected, actual)
+
+    def test_flatten_respects_hidden_n2(self):
         me = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
 
         expected = '`text text2`'

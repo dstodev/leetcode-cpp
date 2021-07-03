@@ -33,8 +33,12 @@ class MarkdownElement:
             try:
                 text += element.flatten()
             except AttributeError:
+                # element is a string
                 text += element
 
+        return self.add_tags(text)
+
+    def add_tags(self, text):
         if self.hidden:
             tag = ''
         else:

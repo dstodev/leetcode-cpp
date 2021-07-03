@@ -71,87 +71,58 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_strips_hex_a0(self):
         html = u'This is some text.\xa0It has a non-breaking space in it.'
-
-        expected = [
-            MarkdownElement('', ['This is some text. It has a non-breaking space in it.'])
-        ]
-
+        expected = 'This is some text. It has a non-breaking space in it.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_accepts_lists(self):
         html = [
             'This is ',
             '<em>some text</em>.'
         ]
-
-        expected = [
-            MarkdownElement('', ['This is ']),
-            MarkdownElement('*', ['some text']),
-            MarkdownElement('', ['.'])
-        ]
-
+        expected = 'This is *some text*.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_handles_list_split_tags(self):
         html = [
             'This is <em>',
             'some text</em>.'
         ]
-
-        expected = [
-            MarkdownElement('', ['This is ']),
-            MarkdownElement('*', ['some text']),
-            MarkdownElement('', ['.'])
-        ]
-
+        expected = 'This is *some text*.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_hides_tags_inside_pre_tags(self):
         html = [
             'This is <pre><em>some text</em> nested inside</pre>',
             ' <em>preformatted</em> <pre>text.</pre>',
         ]
-
-        # 'This is ```some text nested inside``` *preformatted* ```text.```'
-        expected = []
+        expected = 'This is ```some text nested inside``` *preformatted* ```text.```'
 
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_strips_tags_inside_code_tags(self):
-        html = [
-            'This is some ',
-            '<code><em>formatted code</em></code> ',
-            'text.'
-        ]
+        html = 'This is some <code><em>formatted code</em></code> text.'
         expected = 'This is some `formatted code` text.'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_strips_nested_pre_tags(self):
         html = [
-            '<em>This is</em>',
+            '<em>This is</em> ',
             '<pre><em>some</em> ',
             '<pre><em>nested text</em></pre> ',
             '<em>to use</em></pre>. ',
             '<em>whoa</em>'
         ]
-        expected = '*This is*\n```\nsome nested text to use\n```\n. *whoa*'
+        expected = '*This is* ```some nested text to use```. *whoa*'
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_strips_nested_code_tags(self):
         html = [
             '<em>This is</em> ',

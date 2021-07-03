@@ -5,8 +5,8 @@ from dataclasses import InitVar, dataclass, field
 class MarkdownElement:
     tag: str = ''
     data: list = field(default_factory=list)
-    attrs: dict = field(default_factory=dict)
     parent: 'MarkdownElement' = None
+    hidden: bool = False
 
     def __str__(self):
         return self.flatten()
@@ -35,8 +35,13 @@ class MarkdownElement:
             except AttributeError:
                 text += element
 
-        return f'{self.tag}{text}{self.tag}'
+        if self.hidden:
+            tag = ''
+        else:
+            tag = self.tag
+
+        return f'{tag}{text}{tag}'
 
     def add_data(self, data):
         self._register_parent(data)
-        self.data.append(str(data))
+        self.data.append(data)

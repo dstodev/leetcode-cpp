@@ -19,6 +19,12 @@ MAP_ENDTAG = {
     'sup': '</sup>',
 }
 
+# Tags which disable formatting
+PREFORMATTED_TAG = {
+    '`',
+    '```'
+}
+
 
 class HtmlToMarkdown(HTMLParser):
     def __init__(self):
@@ -40,10 +46,16 @@ class HtmlToMarkdown(HTMLParser):
     def handle_starttag(self, tag, attrs):  # feed() callback
         new_element = MarkdownElement()
         new_element.tag = MAP_TAG[tag]
-        new_element.parent = self.current_element
 
-        self.current_element.data.append(new_element)
+        self.register_hidden(new_element)
+
+        self.current_element.add_data(new_element)
         self.current_element = new_element
+
+    def register_hidden(self, element):
+        if self.current_element.hidden \
+                or self.current_element.tag in PREFORMATTED_TAG:
+            element.hidden = True
 
     def handle_endtag(self, tag):  # feed() callback
         self.current_element = self.current_element.parent

@@ -1,15 +1,30 @@
 from dataclasses import InitVar, dataclass, field
+from typing import Union, List
 
 
-@dataclass
+@dataclass(eq=False)
 class MarkdownElement:
-    tag: str = ''
+    tag: Union[List[str], str] = ''
     data: list = field(default_factory=list)
     parent: 'MarkdownElement' = None
     hidden: bool = False
 
     def __str__(self):
         return self.flatten()
+
+    def __eq__(self, other):
+        eq_tag = self.tag == other.tag
+        eq_data = self.data == other.data
+
+        # Assert parents have the same contents, but do not care about instance equality
+        try:
+            eq_parent = self.parent.flatten() == other.parent.flatten()
+        except AttributeError:
+            eq_parent = (self.parent is None and other.parent is None)
+
+        eq_hidden = self.hidden == other.hidden
+
+        return eq_tag and eq_data and eq_parent and eq_hidden
 
     def __post_init__(self):
         for element in self.data:
@@ -44,7 +59,10 @@ class MarkdownElement:
         else:
             tag = self.tag
 
-        return f'{tag}{text}{tag}'
+        if isinstance(tag, str):
+            return f'{tag}{text}{tag}'
+        else:
+            return f'{tag[0]}{text}{tag[1]}'
 
     def add_data(self, data):
         self._register_parent(data)

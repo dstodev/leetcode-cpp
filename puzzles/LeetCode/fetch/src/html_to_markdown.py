@@ -29,10 +29,9 @@ PREFORMATTED_TAG = {
 class HtmlToMarkdown(HTMLParser):
     def __init__(self):
         super().__init__()
-
         self.current_element = None
 
-    def convert(self, html):
+    def convert(self, html, flatten=True):
         if isinstance(html, str):
             html = [html]
 
@@ -41,11 +40,17 @@ class HtmlToMarkdown(HTMLParser):
         for line in html:
             self.feed(line)
 
-        return self.current_element.flatten()  # TODO: Make flatten optional
+        if flatten:
+            return self.current_element.flatten()
+        else:
+            return self.current_element
 
     def handle_starttag(self, tag, attrs):  # feed() callback
         new_element = MarkdownElement()
-        new_element.tag = MAP_TAG[tag]
+        try:
+            new_element.tag = [MAP_TAG[tag], MAP_ENDTAG[tag]]
+        except KeyError:
+            new_element.tag = MAP_TAG[tag]
 
         self.register_hidden(new_element)
 

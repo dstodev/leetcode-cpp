@@ -48,55 +48,89 @@ class TestMarkdownElement(TestCase):
     def test_parent_constructor(self):
         child = MarkdownElement('"', ['text2'])
         me = MarkdownElement('`', ['text ', child])
-
         self.assertEqual(me, child.parent)
 
     def test_parent_add_data(self):
         child = MarkdownElement('"', ['text2'])
         me = MarkdownElement('`', ['text '])
-
         me.add_data(child)
-
         self.assertEqual(me, child.parent)
+
+    def test_tag_supports_list(self):
+        me = MarkdownElement(['- ', '\n'], ['text'])
+        expected = '- text\n'
+        actual = me.flatten()
+        self.assertEqual(expected, actual)
+
+    def test_comparison_equal(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        self.assertEqual(me1, me2)
+
+    def test_comparison_inequal_tag(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.tag = ''
+        self.assertNotEqual(me1, me2)
+
+    def test_comparison_inequal_data_text(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.data[0] = ''
+        self.assertNotEqual(me1, me2)
+
+    def test_comparison_inequal_data_element(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.data[1].tag = ''
+        self.assertNotEqual(me1, me2)
+
+    def test_comparison_inequal_hidden(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.hidden = True
+        self.assertNotEqual(me1, me2)
+
+    def test_comparison_inequal_parent(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.parent = MarkdownElement()
+        self.assertNotEqual(me1, me2)
+
+    def test_comparison_inequal_nested_parent(self):
+        me1 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2 = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        me2.data[1].parent = None
+        self.assertNotEqual(me1, me2)
 
     # These following tests test the flatten() function,
     # where n = the recursion depth of sub-elements within this one.
     def test_flatten_n1(self):
         me = MarkdownElement('`', ['text'])
-
         expected = '`text`'
         actual = me.flatten()
-
         self.assertEqual(expected, actual)
 
     def test_flatten_n2(self):
         me = MarkdownElement('`', ['text ', MarkdownElement('"', ['text2'])])
-
         expected = '`text "text2"`'
         actual = me.flatten()
-
         self.assertEqual(expected, actual)
 
     def test_str_calls_flatten(self):
         me = MarkdownElement('`', ['text ', MarkdownElement('"', ['text2'])])
-
         expected = '`text "text2"`'
         actual = str(me)
-
         self.assertEqual(expected, actual)
 
     def test_flatten_respects_hidden_n1(self):
         me = MarkdownElement('`', ['text'], hidden=True)
-
         expected = 'text'
         actual = me.flatten()
-
         self.assertEqual(expected, actual)
 
     def test_flatten_respects_hidden_n2(self):
         me = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
-
         expected = '`text text2`'
         actual = me.flatten()
-
         self.assertEqual(expected, actual)

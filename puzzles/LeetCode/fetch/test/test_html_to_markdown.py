@@ -1,22 +1,10 @@
-import typing
-from unittest import TestCase, skip
+from unittest import TestCase
 
-from src.html_to_markdown import MAP_TAG, HtmlToMarkdown
+from src.html_to_markdown import HtmlToMarkdown
 from src.markdown_element import MarkdownElement
-
-MarkdownList = typing.List[MarkdownElement]
-
-# TODO:
-# What is the difference between markdown = 'text' and markdown = MarkdownElement('', ['text'])?
-
-
-def assert_markdown_equal(expected: MarkdownList, actual: MarkdownList):
-    for element in expected:
-        pass
 
 
 class TestHtmlToMarkdown(TestCase):
-
     def setUp(self):
         self.md = HtmlToMarkdown()
 
@@ -101,7 +89,6 @@ class TestHtmlToMarkdown(TestCase):
             ' <em>preformatted</em> <pre>text.</pre>',
         ]
         expected = 'This is ```some text nested inside``` *preformatted* ```text.```'
-
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
@@ -135,7 +122,6 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_list(self):
         html = [
             '<ul>',
@@ -147,9 +133,34 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
-    @skip('refactoring')
     def test_convert_preserves_sup(self):
         html = 'This is some <sup>superscript</sup>.'
         expected = html
         actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
+
+    def test_preserve_tree(self):
+        html = [
+            '<em>This is</em> ',
+            '<code><em>some code</em> ',
+            '<code><em>nested inside</em></code> ',
+            '<em>other code</em></code>. ',
+            '<em>whoa</em>'
+        ]
+        expected = MarkdownElement(data=[
+            MarkdownElement('*', ['This is']),
+            ' ',
+            MarkdownElement('`', [
+                MarkdownElement('*', ['some code'], hidden=True),
+                ' ',
+                MarkdownElement('`', [
+                    MarkdownElement('*', ['nested inside'], hidden=True)
+                ], hidden=True),
+                ' ',
+                MarkdownElement('*', ['other code'], hidden=True)
+            ]),
+            '. ',
+            MarkdownElement('*', ['whoa'])
+        ])
+        actual = self.md.convert(html, flatten=False)
         self.assertEqual(expected, actual)

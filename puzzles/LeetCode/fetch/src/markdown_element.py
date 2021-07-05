@@ -13,18 +13,22 @@ class MarkdownElement:
         return self.flatten()
 
     def __eq__(self, other):
-        eq_tag = self.tag == other.tag
-        eq_data = self.data == other.data
+        if isinstance(other, type(self)):
+            eq_tag = self.tag == other.tag
+            eq_data = self.data == other.data
 
-        # Assert parents have the same contents, but do not care about instance equality
-        try:
-            eq_parent = self.parent.flatten() == other.parent.flatten()
-        except AttributeError:
-            eq_parent = (self.parent is None and other.parent is None)
+            # Assert parents have the same contents, but do not care about instance equality
+            try:
+                eq_parent = self.parent.flatten() == other.parent.flatten()
+            except AttributeError:
+                eq_parent = (self.parent is None and other.parent is None)
 
-        eq_hidden = self.hidden == other.hidden
+            eq_hidden = self.hidden == other.hidden
 
-        return eq_tag and eq_data and eq_parent and eq_hidden
+            return eq_tag and eq_data and eq_parent and eq_hidden
+
+        else:
+            return False
 
     def __post_init__(self):
         for element in self.data:

@@ -122,6 +122,16 @@ class TestHtmlToMarkdown(TestCase):
         actual = self.md.convert(html)
         self.assertEqual(expected, actual)
 
+    def test_convert_strips_nested_code_tags_only(self):
+        html = [
+            '<code><em>some code</em> ',
+            '<code><em>nested inside</em></code> ',
+            '<em>other code</em></code>'
+        ]
+        expected = '`some code nested inside other code`'
+        actual = self.md.convert(html)
+        self.assertEqual(expected, actual)
+
     def test_convert_list(self):
         html = [
             '<ul>',

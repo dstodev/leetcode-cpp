@@ -103,6 +103,11 @@ class TestMarkdownElement(TestCase):
         me2.data[1].parent = None
         self.assertNotEqual(me1, me2)
 
+    def test_comparison_different_types(self):
+        me = MarkdownElement('`', ['text ', MarkdownElement('*', ['text2'], hidden=True)])
+        other = 1
+        self.assertNotEqual(me, other)
+
     # These following tests test the flatten() function,
     # where n = the recursion depth of sub-elements within this one.
     def test_flatten_n1(self):

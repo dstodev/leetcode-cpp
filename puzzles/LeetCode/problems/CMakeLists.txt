@@ -1,8 +1,0 @@
-add_subdirectory(AddTwoNumbers)
-add_subdirectory(GenerateParentheses)
-add_subdirectory(LongestSubstring)
-add_subdirectory(PalindromeNumber)
-add_subdirectory(ReverseInteger)
-add_subdirectory(RomanToInteger)
-add_subdirectory(TwoSum)
-add_subdirectory(ValidParentheses)

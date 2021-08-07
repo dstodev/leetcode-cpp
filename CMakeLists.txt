@@ -3,5 +3,5 @@ project(CppPuzzles)
 
 include(CTest)
 
-add_subdirectory(third-party)
+add_subdirectory(lib)
 add_subdirectory(puzzles)

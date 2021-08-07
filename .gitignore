@@ -4,6 +4,7 @@ __pycache__/
 build/
 cmake-build*/
 ipch/
+lib?/third-party/
 
 # Files
 *.pyc
